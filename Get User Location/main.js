@@ -11,13 +11,13 @@ const getLocation = async () => {
         // Get coordinates of location
         const {latitude: lat, longitude: long} = location.coords;
 
-        // Get city and country name from latitude and longitude
+        // Get city and country name from latitude and longitude use geocode api
         const data = await fetch(`https://geocode.xyz/${lat},${long}?geoit=json`);
         
         if(!data.ok)   throw new Error('Location unknown');
 
         const position = await data.json();
-        
+
         // Display position to screen 
         text.innerHTML = `${position.city}, ${position.country}`;
 
