@@ -1,0 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Poppins:wght@100;300;500;700&display=swap');
+
+/* ========== VARIABLE ========== */
+
+:root {
+    --color-blue: #4e57ed;
+    --color-white: #fff;
+    --color-grey: rgb(160, 160, 160);
+    --color-muted: #6d6d6d;
+    --color-dark: #000;
+}
+
+/* ========== BASE SETUP ========== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--color-blue);
+}
+
+html {
+    font-size: 62.5%;
+}
+
+/* ========== DICTIONARY CONTAINER ========== */
+
+.dictionary {
+    background-color: var(--color-white);
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, .15);
+    width: 50rem;
+    font-size: 1.6rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: .8rem;
+    padding: 3rem 4rem;
+}
+
+.dictionary h2 {
+    text-align: center;
+    font-weight: 500;
+    font-size: 3rem;
+}
+
+/* ========== SEARCH ========== */
+
+.input-box {
+    margin: 4rem 0 3rem 0;
+    display: grid;
+    grid-template-columns: 70% 20%;
+    column-gap: 10%;
+}
+
+.input-box .input-area {
+    position: relative;
+    
+}
+
+.input-area .fa-magnifying-glass,
+.input-area .fa-xmark {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-grey);
+}
+
+.input-area input {
+    border: none;
+    outline: none;
+    border-bottom: 2px solid var(--color-grey);
+    width: 100%;
+    padding: 1rem 3.2rem;
+    font-size: 1.7rem;
+    
+    transition: all .4s ease;
+}
+
+.input-area input:focus {
+    border-bottom: 2px solid var(--color-blue);
+}
+
+.input-area .fa-xmark {
+    right: 0;
+    cursor: pointer;
+}
+
+.input-area .fa-xmark.active {
+    color: var(--color-blue);
+}
+
+.input-box .search {
+    font-size: 1.7rem;
+    background-color: var(--color-blue);
+    border: none;
+    border-radius: .6rem;
+    color: var(--color-white);
+    cursor: pointer;
+    box-shadow: 0 .4rem .8rem rgba(0, 0, 0, .5);
+    transition: all .4s ease;
+}
+
+.input-box .search:active {
+    box-shadow: none;
+}
+
+
+
+/* ========== BASIC MEANING ========== */
+
+.basic {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.basic .word {
+    font-size: 3rem;
+    color: var(--color-blue);
+}
+
+.basic .phonetic,
+.part-of-speech a {
+    color: var(--color-muted);
+    font-size: 1.5rem;
+}
+
+.basic .fa-volume-high {
+    color: var(--color-muted);
+    font-size: 2rem;
+    cursor: pointer;
+    transition: all .4s ease;
+}
+
+.basic .fa-volume-high:hover {
+    color: var(--color-dark)
+}
+
+.guide {
+    font-size: 1.5rem;
+    color: var(--color-muted);
+}
+
+/* ========== DETAILS MEANING ========== */
+
+.details {
+    margin-top: 2rem;
+    border-top: 3px solid var(--color-blue);
+    max-height: 40rem;
+    overflow: scroll;
+    position: relative;
+}
+
+.details .type {
+    margin-bottom: 3rem;
+}
+
+.type .heading-type {
+    font-weight: 700;
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 2rem;
+    color: var(--color-blue);
+}
+
+.type .details-box {
+    margin-top: 2rem;
+}   
+
+.details-box .heading {
+    font-weight: 500;
+    padding-left: 1rem;
+    margin-bottom: 4px;
+    font-size: 1.7rem;
+}
+
+.details-box .text {
+    font-weight: 300;
+    padding: 1rem 2rem;
+    border-left: 4px solid var(--color-blue);
+    border-radius: .6rem;
+    background-color: rgb(240, 239, 239);
+    margin-right: 1rem;
+}
+
+.details-box .synonym {
+    margin-left: 5px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.link {
+    transition: all .4s ease;
+}
+
+.link:hover {
+    color: var(--color-blue);
+}
+
+.info {
+    display: none;
+}
+
+.searching {
+    display: none;
+}
