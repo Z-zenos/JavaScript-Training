@@ -11,9 +11,13 @@ const input = document.querySelector('input'),
       infoBox = document.querySelector('.info'),
       details = document.querySelector('.details'),
       guide = document.querySelector('.guide'),
-      searching = document.querySelector('.searching');
+      searching = document.querySelector('.searching'),
+      soundErr = document.querySelector('.sound-error'),
+      searchErr = document.querySelector('.search-error');
 
 
+let synonyms,
+    audio;
 
 /* ========== EVENT HANDLER ========== */
 
@@ -23,6 +27,7 @@ const clearInput = () => {
     btnDelete.classList.remove('active');
 }
 
+// Search by entering when type letter in input
 const searchWord = (e = '') => {
     if(!input.value) btnDelete.classList.remove('active');
     else btnDelete.classList.add('active');
@@ -30,49 +35,65 @@ const searchWord = (e = '') => {
     if(e.key === 'Enter') displayUI();
 }
 
+// Search by clicking synonym in synonym box
+const searchFromSynonym = () => {
+    // search handler for synonym
+    synonyms = Array.from(document.querySelectorAll('.synonyms'));
+    synonyms.forEach(synBox => synBox.addEventListener('click', e => {
+        // Event delegation
+        if(e.target.classList.contains('synonym')) {
+            input.value = e.target.textContent;
+            displayUI.call(e.target.textContent);
+        }
+    }));
+}
+
+const play = () => {
+    if(!audio) {
+        soundErr.style.opacity = 1;
+        setTimeout(() => soundErr.style.opacity = 0, 1000);
+    }
+    else audio.play();
+}
+
 input.value = '';
 searchWord();
 
-const getWordAPI = wordInput => {
+const getWordAPI = async wordInput => {
 
     // Remove guide
     guide.style.display = 'none';
     searching.style.display = 'block';
+
     return fetch(`https://api.dictionaryapi.dev/api/v2/entries/en_US/${wordInput}`)
         .then(data => {
-            if(!data.ok)    throw new Error('Word unknown');
+            if(!data.ok) throw new Error('Word unknown');
             return data.json();
         })
         .then(item => item[0])
-        .catch(error => console.error(`ERROR: ${error.message} 💥`));
+        .catch(error => error);
 }
         
 
 const displayUI = async function() {
     try {
         const wordDetails = await getWordAPI(input.value);
-        console.log(wordDetails);
-
-        // Delay searching ...
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        searching.style.display = 'none'
+        
+        
         // Display UI
-
+        searching.style.display = 'none';
+        if(wordDetails instanceof Error)    throw new Error(wordDetails.message);
+        searchErr.style.opacity = 0;
 
         // Word
         word.textContent = wordDetails.word;
         
         // Get sound and phonetic (prrority: us, uk)
-        for(const p of wordDetails.phonetics) {
-            if(p.text && p.audio) {
-                phonetic.textContent = p.text;
-                
-                break;
-            }
-
-        }
-
-        // part of speech
+        const [phonetics] = wordDetails.phonetics;
+        phonetic.textContent = phonetics.text;
+        
+        audio = phonetics.audio ? new Audio(phonetics.audio) : null;
+            // part of speech
         partOfSpeech.textContent = '';
         partOfSpeech.insertAdjacentHTML('beforeend', `
             ${wordDetails.meanings
@@ -83,7 +104,6 @@ const displayUI = async function() {
 
         // Meaning
         const info = wordDetails.meanings;
-        console.log(info);
        
         details.textContent = '';
         details.insertAdjacentHTML(
@@ -117,17 +137,19 @@ const displayUI = async function() {
         );
 
         infoBox.style.display = 'block';
-
+        searchFromSynonym();
 
     } catch (error) {
-        console.error('Some thing went wrong');
+
+        searchErr.style.opacity = 1;
+        console.error(`ERROR: ${error.message} 💥`);
     }
 }
-
 
 /* ========== FIRE EVENT ========== */
 
 btnDelete.addEventListener('click', clearInput);
 input.addEventListener('keyup', searchWord);
 search.addEventListener('click', displayUI);
+volumne.addEventListener('click', play);
 

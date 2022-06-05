@@ -51,7 +51,7 @@ html {
 /* ========== SEARCH ========== */
 
 .input-box {
-    margin: 4rem 0 3rem 0;
+    margin: 4rem 0;
     display: grid;
     grid-template-columns: 70% 20%;
     column-gap: 10%;
@@ -59,7 +59,6 @@ html {
 
 .input-box .input-area {
     position: relative;
-    
 }
 
 .input-area .fa-magnifying-glass,
@@ -109,6 +108,13 @@ html {
     box-shadow: none;
 }
 
+.input-box .search-error {
+    color: red;
+    position: absolute;
+    bottom: -3rem;
+    opacity: 0;
+    transition: all .4s ease;
+}
 
 
 /* ========== BASIC MEANING ========== */
@@ -139,6 +145,21 @@ html {
 
 .basic .fa-volume-high:hover {
     color: var(--color-dark)
+}
+
+.basic-right {
+    flex-basis: 10%;
+    position: relative;
+}
+
+.sound-error {
+    position: absolute;
+    bottom: -3rem;
+    opacity: 0;
+    right: 0;
+    width: 10rem;
+    color: red;
+    transition: all .4s ease;
 }
 
 .guide {
