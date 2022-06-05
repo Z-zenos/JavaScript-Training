@@ -29,9 +29,14 @@ const clearInput = () => {
 
 // Search by entering when type letter in input
 const searchWord = (e = '') => {
-    if(!input.value) btnDelete.classList.remove('active');
-    else btnDelete.classList.add('active');
-    
+    if(!input.value) {
+        btnDelete.classList.remove('active');
+        search.classList.remove('active');
+    }
+    else {
+        search.classList.add('active');
+        btnDelete.classList.add('active');
+    }
     if(e.key === 'Enter') displayUI();
 }
 
@@ -48,6 +53,7 @@ const searchFromSynonym = () => {
     }));
 }
 
+// Emit pronunciation of word 
 const play = () => {
     if(!audio) {
         soundErr.style.opacity = 1;
@@ -72,13 +78,11 @@ const getWordAPI = async wordInput => {
         })
         .then(item => item[0])
         .catch(error => error);
-}
-        
+}     
 
 const displayUI = async function() {
     try {
         const wordDetails = await getWordAPI(input.value);
-        
         
         // Display UI
         searching.style.display = 'none';
@@ -91,9 +95,9 @@ const displayUI = async function() {
         // Get sound and phonetic (prrority: us, uk)
         const [phonetics] = wordDetails.phonetics;
         phonetic.textContent = phonetics.text;
-        
         audio = phonetics.audio ? new Audio(phonetics.audio) : null;
-            // part of speech
+        
+        // part of speech
         partOfSpeech.textContent = '';
         partOfSpeech.insertAdjacentHTML('beforeend', `
             ${wordDetails.meanings
@@ -101,7 +105,7 @@ const displayUI = async function() {
                 .join(', ')
             }
         `);
-
+        
         // Meaning
         const info = wordDetails.meanings;
        
@@ -130,17 +134,24 @@ const displayUI = async function() {
                                 }
                             </p>
                         </div>
-                    </div>
-                    
+                    </div> 
                 `)
                 .join('')
         );
 
         infoBox.style.display = 'block';
+
+        
+        // Smooth scroll into position of part of speech in dictionary box when click link (part of speech)
+        const type = Array.from(document.querySelectorAll('.type'));
+        Array.from(document.querySelectorAll('.link')).forEach((l, i) => l.addEventListener('click', e => {
+            e.preventDefault();
+            type[i].scrollIntoView({ behavior: 'smooth' });
+        }));
+
+        // Attach click event for each synonym
         searchFromSynonym();
-
     } catch (error) {
-
         searchErr.style.opacity = 1;
         console.error(`ERROR: ${error.message} 💥`);
     }

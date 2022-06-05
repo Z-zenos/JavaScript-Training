@@ -86,26 +86,33 @@ html {
 
 .input-area .fa-xmark {
     right: 0;
-    cursor: pointer;
+    cursor: not-allowed;
 }
 
 .input-area .fa-xmark.active {
     color: var(--color-blue);
+    cursor: pointer;
 }
 
 .input-box .search {
     font-size: 1.7rem;
-    background-color: var(--color-blue);
+    background-color: var(--color-muted);
     border: none;
     border-radius: .6rem;
     color: var(--color-white);
-    cursor: pointer;
     box-shadow: 0 .4rem .8rem rgba(0, 0, 0, .5);
     transition: all .4s ease;
+    pointer-events: none;
 }
 
 .input-box .search:active {
     box-shadow: none;
+}
+
+.input-box .search.active {
+    background-color: var(--color-blue);
+    cursor: pointer;
+    pointer-events: all;
 }
 
 .input-box .search-error {
