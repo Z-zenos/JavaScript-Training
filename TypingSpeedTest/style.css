@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Poppins:wght@100;300;400;500;700&display=swap');
+
+:root {
+    --color-blue: #04B2D9;
+    --color-white: #fff;
+    --color-green: #30c06d;
+    --color-border: #ccc;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--color-blue);
+}
+
+html {
+    font-size: 62.5%;
+}
+
+.typing-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 3rem;
+    background-color: #fff;
+    border-radius: .8rem;
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, .15);
+    font-size: 1.6rem;
+    width: 60rem;
+}
+
+.typing-container .typing-box {
+    border: 1px solid var(--color-border);
+    border-radius: .5rem;
+    padding: 1rem 2rem;
+}
+
+.typing-box .paragraph-box {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 2rem;
+    letter-spacing: 1px;
+    line-height: 3rem;
+    font-weight: 300;
+    position: relative;
+}
+
+.paragraph-box input {
+    position: absolute;
+    opacity: 0;
+}
+
+.correct {
+    color: var(--color-green);
+}
+
+.incorrect {
+    color: red;
+}
+
+.typing-box .calculate-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.calculate-box .col:not(:last-child, :nth-child(4)) {
+    border-right: 1px solid var(--color-border);
+    padding-right: 1.2rem;
+}
+
+.calculate-box .btn {
+    padding: 1rem;
+    background-color: var(--color-blue);
+    outline: none;
+    border-radius: .6rem;
+    border: none;
+    font-size: 1.6rem;
+    cursor: pointer;
+    margin-left: 2rem;
+    color: var(--color-white);
+}
+
+.result {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3rem 5rem 0;
+}
+
+.result-left {
+    flex-basis: 50%;
+}
+
+.result-left .ratio {
+    margin-left: 2rem;
+}
+
+.result-right {
+    text-align: center;
+}
+
+.result-right .level {
+    font-size: 5rem;
+    color: var(--color-blue);
+}

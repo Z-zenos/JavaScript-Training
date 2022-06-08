@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing speed test game</title>
+    <script src="https://kit.fontawesome.com/4d17426d5c.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="typing-container">
+        <div class="typing-box">
+            <div class="paragraph-box">
+                <p class="paragraph">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae error omnis sapiente fuga! At facilis, voluptates incidunt itaque tempora iure ut quam optio quaerat sit similique, voluptatum quasi commodi ea?
+                </p>
+                <input type="text" >
+            </div>
+            <div class="calculate-box">
+                <div class="col">
+                    <span class="text">Time Left: </span>
+                    <span class="time">10s</span>
+                </div>
+                <div class="col">
+                    <span class="text">Mistakes: </span>
+                    <span class="mistakes incorrect">0</span>
+                </div>
+                <div class="col">
+                    <span class="text">WPM: </span>
+                    <span class="wpm">0</span>
+                </div>
+                <div class="col">
+                    <span class="text">CPM: </span>
+                    <span class="cpm">0</span>
+                </div>
+                <button class="col btn">Start</button>
+            </div>
+        </div>
+        <div class="result">
+            <div class="result-left">
+                <div class="incorrect-chars">
+                    <span class="text">Incorrect Character: </span>
+                    <div class="error-chars incorrect"></div>
+                </div>
+                <div class="correct-ratio">
+                    <span class="text">Correct Ratio: </span>
+                    <span class="ratio"></span>
+                </div>
+            </div>
+            <div class="result-right">
+                <div class="level-box">
+                    <div class="text">Level</div>
+                    <div class="level"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
