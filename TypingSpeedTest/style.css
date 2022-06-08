@@ -49,6 +49,7 @@ html {
     line-height: 3rem;
     font-weight: 300;
     position: relative;
+    font-size: 2rem;
 }
 
 .paragraph-box input {
