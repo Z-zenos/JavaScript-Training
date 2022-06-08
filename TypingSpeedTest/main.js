@@ -45,8 +45,18 @@ const calcScoreLevel = score => {
     else return 'S';
 }
 
-const checkTyping = () => {
+const displayResult = () => {
+    errorChars.textContent = [...typingIncorrect].join(' ');
+    ratio.textContent = `${((cpmCount ? (1 - mistakesCount / cpmCount) : 0) * 100).toFixed(2)}%`;
+    level.textContent = calcScoreLevel(wpmCount);
 
+    // Turn of focus of input and turn off timer and disable input event of input
+    input.blur();
+    clearInterval(timeId);
+    input.removeEventListener('input', checkTyping);
+}
+
+const checkTyping = () => {
     let currentSpan = spanArr[i];
     let current = spanArr[i].textContent;
 
@@ -71,23 +81,20 @@ const checkTyping = () => {
     cpm.textContent = ++cpmCount;
     input.value = '';
     ++i;
+    if(i >= spanArr.length)
+        displayResult();
 }
 
 const startTyping = () => {
     btn.textContent = 'Try again';
     input.addEventListener('input', checkTyping);
+    
     const tick = () => {
         // Decreate time
         time.textContent = `${--timer}s`;
-        
-        // If timer = 0 then turn off timer and disable input event of input
-        if(!timer)  {
-            errorChars.textContent = [...typingIncorrect].join(' ');
-            ratio.textContent = `${((cpmCount ? (1 - mistakesCount / cpmCount) : 0) * 100).toFixed(2)}%`;
-            level.textContent = calcScoreLevel(wpmCount);
-            clearInterval(timeId);
-            input.removeEventListener('input', checkTyping);
-        }  
+
+        // If timer = 0 then 
+        if(!timer) displayResult();
     }
     
     // return id of setInterval and fire timer 
