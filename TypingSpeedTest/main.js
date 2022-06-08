@@ -28,8 +28,8 @@ const spanArr = document.querySelectorAll('.paragraph span');
 
 const init = () => {
     if(timeId)  clearInterval(timeId);
-    time.textContent = `10s`;
-    timer = 10;
+    time.textContent = `60s`;
+    timer = 60;
     mistakes.textContent = wpm.textContent = cpm.textContent = 0;
     i = mistakesCount = wpmCount = cpmCount = 0;
     errorChars.textContent = input.value = ratio.textContent = level.textContent = '';
@@ -38,7 +38,6 @@ const init = () => {
 }
 
 const calcScoreLevel = score => {
-    score *= 10;
     if(score < 30) return 'D';
     else if(score >= 30 && score < 50)  return 'C';
     else if(score >= 50 && score < 70)  return 'B';
