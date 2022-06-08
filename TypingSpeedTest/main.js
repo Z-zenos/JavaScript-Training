@@ -11,7 +11,8 @@ const input = document.querySelector('input'),
       paragraph = document.querySelector('.paragraph'),
       errorChars = document.querySelector('.error-chars'),
       ratio = document.querySelector('.ratio'),
-      level = document.querySelector('.level');
+      level = document.querySelector('.level'),
+      paragraphBox = document.querySelector('.paragraph-box');
 
 paragraph.innerHTML = paragraph.innerText
                         .split('')
@@ -48,13 +49,16 @@ const calcScoreLevel = score => {
 const displayResult = () => {
     errorChars.textContent = [...typingIncorrect].join(' ');
     ratio.textContent = `${((cpmCount ? (1 - mistakesCount / cpmCount) : 0) * 100).toFixed(2)}%`;
-    level.textContent = calcScoreLevel(wpmCount);
+    level.textContent = calcScoreLevel(wpmCount - mistakesCount / timer);
 
     // Turn of focus of input and turn off timer and disable input event of input
     input.blur();
     clearInterval(timeId);
     input.removeEventListener('input', checkTyping);
 }
+
+let numberWordToMove = 30,
+    topPos  = 0;
 
 const checkTyping = () => {
     let currentSpan = spanArr[i];
@@ -81,6 +85,18 @@ const checkTyping = () => {
     cpm.textContent = ++cpmCount;
     input.value = '';
     ++i;
+
+    // Move viewport of paragraph box
+    if(wpmCount >= numberWordToMove) {
+        numberWordToMove += 30;
+        topPos += 100;
+        input.style.top = `${topPos}px`;
+        paragraphBox.scrollTo({
+            "behavior": "smooth",
+            "top": topPos
+        });
+    }
+
     if(i >= spanArr.length)
         displayResult();
 }

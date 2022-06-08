@@ -50,10 +50,13 @@ html {
     font-weight: 300;
     position: relative;
     font-size: 2rem;
+    max-height: 20rem;
+    overflow: scroll;
 }
 
 .paragraph-box input {
     position: absolute;
+    top: 0;
     opacity: 0;
 }
 
