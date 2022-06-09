@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Poppins:wght@100;300;400;500;700&display=swap');
+
+:root {
+    --color-white: #fff;
+    --color-border: #f2f2f2;
+    --color-purple: #8457db;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--color-purple);
+}
+
+html {
+    font-size: 62.5%;
+}
+
+.right-cl-menu {
+    width: 24rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 1.8rem;
+    box-shadow: 0 1rem 4rem rgba(0, 0, 0, .15);
+    border-radius: 1rem;
+    background-color: var(--color-white);
+    padding: 1rem 1.6rem 0.8rem;
+    display: none;
+}
+
+.right-cl-menu .line {
+    transition: all .4s ease; 
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    position: relative;
+    min-width: 20rem;
+}
+
+.option-menu {
+    position: absolute;
+    top: 0;
+    right: -20rem;
+    box-shadow: 0 1rem 4rem rgba(0, 0, 0, .15);
+    border-radius: 1rem;
+    background-color: var(--color-white);
+    padding: 1rem 1.6rem 0.8rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .4s ease;
+}
+
+.line:hover .option-menu {
+    opacity: 1;
+    visibility: visible;
+}
+
+.option-menu.active {
+    right: 20rem;
+    
+}
+
+.option-menu .line:last-child {
+    border-top: none;
+}
+
+.right-cl-menu .line:nth-child(2) .fa-chevron-right {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+}
+
+.right-cl-menu > .line:last-child {
+    border-top: 1px solid var(--color-border);
+}
+
+.right-cl-menu .line:hover {
+    background-color: var(--color-border);
+}
+
+.right-cl-menu .option {
+    margin-left: 2rem;
+}
