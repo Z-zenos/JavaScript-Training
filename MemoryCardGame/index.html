@@ -12,17 +12,16 @@
 <body>
     <div class="memory">
         <div class="memory__cal">
-            <div class="memory__moves"><span>Moves: </span>4</div>
-            <div class="memory__time"><span>Time: </span> 60s</div>
+            <div class="memory__cal--left">
+                <p class="resultText">You Win !</p>
+            </div>
+            <div class="memory__cal--right">
+                <div class="memory__moves">Moves: <span class="moves">0</span></div>
+                <div class="memory__time">Time: <span class="time">0s</span></div>
+            </div>
         </div>
         
         <div class="memory__play">
-            <div class="card">
-                <div class="card__side card__side--front">?</div>
-                <div class="card__side card__side--back">
-                    <img src="images/001.png" alt="pokemon image" class="card__img">
-                </div>
-            </div>
         </div>
 
         <button class="btn btn-black">Start Game</button>

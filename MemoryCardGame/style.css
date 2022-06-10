@@ -27,10 +27,21 @@ html {
   border-radius: 0.8rem;
 }
 .memory__cal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.memory__cal--right {
   text-align: right;
 }
 .memory__play {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
   margin: 4rem 0;
+}
+.memory__play--active {
+  pointer-events: none;
 }
 
 .card {
@@ -45,7 +56,7 @@ html {
   width: 100%;
   top: 0;
   left: 0;
-  transition: all 0.8s ease;
+  transition: all 0.5s ease;
   backface-visibility: hidden;
   border: 3px solid #160707;
 }
@@ -61,10 +72,10 @@ html {
   background-color: #f5f5a5;
   transform: rotateY(180deg);
 }
-.card:hover .card__side--front {
+.card__active .card__side--front {
   transform: rotateY(-180deg);
 }
-.card:hover .card__side--back {
+.card__active .card__side--back {
   transform: rotateY(0);
 }
 .card__img {
@@ -73,6 +84,19 @@ html {
   object-fit: cover;
   padding: 1.5rem;
   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.5);
+}
+
+.resultText {
+  font-size: 3rem;
+  color: #f4c531;
+  transform: translateY(1rem) skew(12deg, -12deg);
+  text-shadow: 0 0 2rem rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.resultText.active {
+  opacity: 1;
 }
 
 .btn {
