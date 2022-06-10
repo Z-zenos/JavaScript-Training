@@ -79,11 +79,14 @@ const compare = () => {
     else {
      
         numberCardsFlipped += 2;
+
+        // If flipped all card then win game
         if(numberCardsFlipped === pokemonArr.length) {
             resultText.classList.add('active');
             clearInterval(timerId);
         }
     }
+
     // Reset twoPokemon array and flipNum for next times
     twoPokemon = [];
     flipNum = 0;
@@ -115,19 +118,26 @@ const flipCard = (e) => {
 
 const startGame = () => {
     init();
+
+    // Remove pointer-events property to play
     playArea.classList.remove('memory__play--active');
     timerId = setInterval(() => {
-
         time.textContent = `${++second}s`;
+
+        // if timeout and number card that were flipped less than total cards then game over
         if(second === 60 && numberCardsFlipped < pokemonArr.length) {
             resultText.textContent = 'You Loss !';
             resultText.classList.add('active');
+            playArea.classList.add('memory__play--active');
             clearInterval(timerId);
         }
 
     }, 1000);
     btn.textContent = 'Restart';
 }
+
+
+/* ========== EVENT ========== */
 
 playArea.addEventListener('click', flipCard);
 btn.addEventListener('click', startGame);
