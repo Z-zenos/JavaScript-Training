@@ -30,9 +30,26 @@ html {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 10rem;
+}
+.memory__cal--left {
+  position: relative;
+  overflow: hidden;
+  flex-basis: 70%;
+  height: 100%;
 }
 .memory__cal--right {
   text-align: right;
+}
+.memory__logo {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  width: 20rem;
+  height: 10rem;
+  transform: rotate(-9deg);
+  opacity: 1;
+  transition: all 0.4s ease;
 }
 .memory__play {
   display: grid;
@@ -87,9 +104,9 @@ html {
 }
 
 .resultText {
-  font-size: 3rem;
+  font-size: 5rem;
   color: #f4c531;
-  transform: translateY(1rem) skew(12deg, -12deg);
+  transform: translateY(2rem) skew(12deg, -12deg);
   text-shadow: 0 0 2rem rgba(0, 0, 0, 0.4);
   opacity: 0;
   transition: all 0.4s ease;

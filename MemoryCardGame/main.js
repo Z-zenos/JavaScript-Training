@@ -6,7 +6,8 @@ const moves = document.querySelector('.moves'),
       playArea = document.querySelector('.memory__play'),
       card = document.querySelectorAll('.card'),
       btn = document.querySelector('.btn'),
-      resultText = document.querySelector('.resultText');
+      resultText = document.querySelector('.resultText'),
+      logo = document.querySelector('.memory__logo');
 
 
 let pokemonArr,
@@ -63,6 +64,7 @@ const init = () => {
     twoPokemon = [];
     moves.textContent = flipNum = move = second = numberCardsFlipped = 0;
     time.textContent = '0s';
+    logo.style.opacity = 1;
     resultText.textContent = 'You Win !';
     resultText.classList.remove('active');
     playArea.classList.add('memory__play--active');
@@ -82,6 +84,7 @@ const compare = () => {
 
         // If flipped all card then win game
         if(numberCardsFlipped === pokemonArr.length) {
+            logo.style.opacity = 0;
             resultText.classList.add('active');
             clearInterval(timerId);
         }
@@ -126,6 +129,7 @@ const startGame = () => {
 
         // if timeout and number card that were flipped less than total cards then game over
         if(second === 60 && numberCardsFlipped < pokemonArr.length) {
+            logo.style.opacity = 0;
             resultText.textContent = 'You Loss !';
             resultText.classList.add('active');
             playArea.classList.add('memory__play--active');

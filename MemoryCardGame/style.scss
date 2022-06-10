@@ -39,10 +39,29 @@ html {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        height: 10rem;
+
+        &--left {
+            position: relative;
+            overflow: hidden;
+            flex-basis: 70%;
+            height: 100%;
+        }
 
         &--right {
             text-align: right;
         }
+    }
+
+    &__logo {
+        position: absolute;
+        top: 0.5rem;
+        left: 0.5rem;
+        width: 20rem;
+        height: 10rem;
+        transform: rotate(-9deg);
+        opacity: 1;
+        transition: all .4s ease;
     }
 
     &__play {
@@ -98,7 +117,6 @@ html {
             transform: rotateY(0);
         }
     }
-    
 
     &__img {
         width: 100%;
@@ -110,9 +128,9 @@ html {
 }
 
 .resultText {
-    font-size: 3rem;
+    font-size: 5rem;
     color: $color-yellow;
-    transform: translateY(1rem) skew(12deg, -12deg);
+    transform: translateY(2rem) skew(12deg, -12deg);
     text-shadow: 0 0 2rem rgba($color-black, .4);
     opacity: 0;
     transition: all .4s ease;
@@ -131,6 +149,3 @@ html {
     border-radius: .6rem;
     cursor: pointer;
 }
-
-
-
