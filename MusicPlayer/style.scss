@@ -2,8 +2,28 @@
 
 
 $color-white: #fff;
-$color-border: #160707;
+$color-grey: #f2f2f2;
 $color-black: #000;
+$color-pink-light: #f773a4;
+$color-pink-dark: #936a93;
+
+@mixin gradient {
+    background: linear-gradient(to bottom right, $color-pink-light, $color-pink-dark);
+}
+
+@mixin textGradient {
+    @include gradient();
+    color: transparent;
+    // -webkit-background-clip: text;
+    background-clip: text;
+
+}
+
+@mixin flexMusic {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 * {
     margin: 0;
@@ -13,8 +33,151 @@ $color-black: #000;
 
 body {
     font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    @include gradient();
 }
 
 html {
     font-size: 62.5%;
 }
+
+.music {
+    font-size: 1.7rem;
+    border-radius: 1rem;
+    background-color: $color-white;
+    box-shadow: 0 1.5rem 4rem rgba($color-black, .15);
+    width: 35rem;
+    height: 50rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2rem 3rem;
+    text-align: center;
+
+    &__header {
+        @include flexMusic();
+    }
+
+    &__logo {
+        font-size: 2.4rem;
+        @include textGradient();
+    }
+
+    &__img-box {
+        border-radius: 2rem;
+        margin: 2rem 0;
+    }
+    
+    &__img {
+        box-shadow: 0 0 1rem $color-black;
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+    }
+
+    &__name {
+        font-weight: 500;
+        font-size: 2rem;
+    }
+    
+    &__author {
+        font-size: 1.6rem;
+        opacity: .7;
+    }
+
+    &__progress {
+        position: relative;
+        margin: 2rem 0 4rem;
+        width: 100%;
+        height: .8rem;
+        background-color: rgba($color-pink-light, .3);
+        border-radius: 2rem;
+        font-size: 1.3rem;
+        opacity: .7;
+    }
+
+    &__progress-bar {
+        position: absolute;
+        @include gradient();
+        width: 42%;
+        height: 100%;
+        border-radius: inherit;
+    }
+
+    &__progress-bar::before {
+        position: absolute;
+        display: block;
+        content: "";
+        width: .8rem;
+        height: 100%;
+        transform: scale(1.6);
+        right: 0;
+        @include gradient();
+        box-shadow: 0 0 4rem $color-black;
+        border-radius: 50%;
+        outline: 1px solid $color-pink-light;
+        outline-offset: .2rem;
+    }
+
+    &__current-time {
+        position: absolute;
+        left: 0;
+        bottom: -2.2rem;
+    }
+
+    &__max-time {
+        position: absolute;
+        right: 0;
+        bottom: -2.2rem;
+    }
+
+    &__btn-box {
+        @include flexMusic();
+
+        &--left, &--right {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            font-size: 2rem;
+        }
+
+        &--middle {
+            @include flexMusic();
+            column-gap: 2rem;
+            font-size: 2.5rem;
+
+            .listen {
+                width: 5rem;
+                height: 5rem;
+                @include gradient();
+                border-radius: 50%;
+                position: relative;
+                outline: 2px solid $color-pink-light;
+                outline-offset: .4rem;
+                box-shadow: 0 0 3rem rgba($color-black, .6);
+                transition: all .5s ease;
+                cursor: pointer;
+
+                &:active {
+                    box-shadow: none;
+                }
+
+                .btn-play {
+                    color: $color-white;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            }
+        }
+    }
+ }
+
+i {
+    @include textGradient();
+    cursor: pointer;
+    transition: all .4s ease;
+}
+

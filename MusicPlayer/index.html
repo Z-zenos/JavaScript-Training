@@ -5,10 +5,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Player</title>
-    <script src="https://kit.fontawesome.com/4d17426d5c.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/4f1089ffd1.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <div class="music">
+        <div class="music__header">
+            <i class="fa-solid fa-angle-down"></i>
+            <div class="music__logo">Mudev</div>
+            <i class="fa-solid fa-bars-progress btn-option"></i>
+        </div>
+        <div class="music__img-box">
+            <img src="singer.jpg" alt="Author image" class="music__img">
+        </div>
+        <div class="music__info">
+            <div class="music__name">Hardwind - Want Me</div>
+            <div class="music__author">Mike Archangelo</div>
+        </div>
+        <div class="music__progress">
+            <div class="music__progress-bar"></div>
+            <span class="music__current-time">1:08</span>
+            <span class="music__max-time">2:12</span>
+        </div>
+        <div class="music__btn-box">
+            <div class="music__btn-box--left">
+                <i class="fa-solid fa-shuffle btn-shuffle"></i>
+                <i class="fa-solid fa-repeat btn-repeat"></i>
+                <!-- <i class="fa-solid fa-repeat-1 btn-repeat"></i> -->
+                
+            </div>
+            <div class="music__btn-box--middle">
+                <i class="fa-solid fa-backward-fast btn-backward"></i>
+
+                <div class="listen">
+                    <i class="fa-solid fa-play btn-play"></i>
+                    <!-- <i class="fa-solid fa-pause btn-pause"></i> -->
+                </div>
+                <i class="fa-solid fa-forward-fast btn-forward"></i>
+            </div>
+            <div class="music__btn-box--right">
+                <i class="fa-solid fa-headphones-simple btn-list-music"></i>
+                <i class="fa-regular fa-heart btn-love"></i>
+            </div>
+            
+            
+        </div>
+    </div>
+    <script src="main.js"></script>
 </body>
 </html>
