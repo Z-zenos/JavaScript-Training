@@ -132,7 +132,7 @@ html {
 .music__btn-box--middle .listen:active {
   box-shadow: none;
 }
-.music__btn-box--middle .listen .btn-play {
+.music__btn-box--middle .listen i {
   color: #fff;
   position: absolute;
   top: 50%;
@@ -146,6 +146,24 @@ i {
   background-clip: text;
   cursor: pointer;
   transition: all 0.4s ease;
+}
+
+.fa-play,
+.fa-pause,
+.fa-repeat,
+.fa-repeat-1,
+.fa-heart {
+  display: none;
+  opacity: 0;
+}
+
+.fa-play.active,
+.fa-pause.active,
+.fa-repeat.active,
+.fa-repeat-1.active,
+.fa-heart.active {
+  opacity: 1;
+  display: block;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -24,33 +24,38 @@
         </div>
         <div class="music__progress">
             <div class="music__progress-bar"></div>
-            <span class="music__current-time">1:08</span>
-            <span class="music__max-time">2:12</span>
+            <span class="music__current-time">0:00</span>
+            <span class="music__max-time"></span>
         </div>
         <div class="music__btn-box">
             <div class="music__btn-box--left">
                 <i class="fa-solid fa-shuffle btn-shuffle"></i>
-                <i class="fa-solid fa-repeat btn-repeat"></i>
-                <!-- <i class="fa-solid fa-repeat-1 btn-repeat"></i> -->
-                
+                <div class="repeat">
+                    <i class="fa-solid fa-repeat-1"></i>
+                    <i class="fa-solid fa-repeat active"></i>
+                </div>
             </div>
             <div class="music__btn-box--middle">
                 <i class="fa-solid fa-backward-fast btn-backward"></i>
 
                 <div class="listen">
-                    <i class="fa-solid fa-play btn-play"></i>
-                    <!-- <i class="fa-solid fa-pause btn-pause"></i> -->
+                    <i class="fa-solid fa-play active"></i>
+                    <i class="fa-solid fa-pause"></i>
                 </div>
                 <i class="fa-solid fa-forward-fast btn-forward"></i>
             </div>
             <div class="music__btn-box--right">
                 <i class="fa-solid fa-headphones-simple btn-list-music"></i>
-                <i class="fa-regular fa-heart btn-love"></i>
+                <div class="heart">
+                    <i class="fa-regular fa-heart active"></i>
+                    <i class="fa-solid fa-heart"></i>
+                </div>
             </div>
             
             
         </div>
     </div>
+    <script src="album.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

@@ -163,13 +163,15 @@ html {
                     box-shadow: none;
                 }
 
-                .btn-play {
+                i {
                     color: $color-white;
                     position: absolute;
                     top: 50%;
                     left: 50%;
                     transform: translate(-50%, -50%);
                 }
+                
+                
             }
         }
     }
@@ -181,3 +183,20 @@ i {
     transition: all .4s ease;
 }
 
+.fa-play,
+.fa-pause,
+.fa-repeat,
+.fa-repeat-1,
+.fa-heart {
+    display: none;
+    opacity: 0;
+}
+
+.fa-play.active,
+.fa-pause.active,
+.fa-repeat.active,
+.fa-repeat-1.active,
+.fa-heart.active {
+    opacity: 1;
+    display: block;
+}
