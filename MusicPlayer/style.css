@@ -43,6 +43,7 @@ html {
 .music__img-box {
   border-radius: 2rem;
   margin: 2rem 0;
+  height: 20rem;
 }
 .music__img {
   box-shadow: 0 0 1rem #000;

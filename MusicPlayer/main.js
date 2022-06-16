@@ -8,7 +8,8 @@ const select = selector => document.querySelector(selector);
 
 const btnListen = select('.listen'),
       btnShuffle = select('.btn-shuffle'),
-      btnProgress = select('.music__progress'),
+      progress = select('.music__progress'),
+      progressBar = select('.music__progress-bar'),
       btnBackward = select('.btn-backward'),
       btnForward = select('.btn-forward'),
       btnList = select('.btn-list-music'),
@@ -23,7 +24,8 @@ const btnListen = select('.listen'),
 
 const play_pause = btnListen.children,
       repeat_unrepeat = btnRepeat.children,
-      heart_unheart = btnHeart.children;
+      heart_unheart = btnHeart.children,
+      maxWidthProgress = Number.parseInt(window.getComputedStyle(progress).width);
 
 let id,
     current,
@@ -43,6 +45,11 @@ const init = () => {
     isRepeat = false;
     isNewSong = true;
     renderSong(id);
+    console.table({
+        "new song": isNewSong,
+        "playing": isPlaying,
+        "repeat": isRepeat
+    });
 }
 
 const switchify = box => [...box].forEach(icon => icon.classList.toggle('active'));
@@ -65,6 +72,8 @@ const handleTime = time => {
 }
 
 const renderSong = id => {
+
+    progressBar.style.width = '0';
     if(!isNewSong)  return;
 
     isNewSong = false;
@@ -91,10 +100,15 @@ const renderSong = id => {
         btnHeart.classList.add('fa-solid');
 }
 
-
 const play = () => {
+
+    console.table({
+        "new song": isNewSong,
+        "playing": isPlaying,
+        "repeat": isRepeat
+    });
     // Display UI and load source
-    renderSong();
+    renderSong(id);
 
     isPlaying = !isPlaying;
     // Switch play icon and pause icon 
@@ -104,6 +118,9 @@ const play = () => {
         const tick = () => {
             // Run time
             currentTime.textContent = handleTime(++current);
+
+            // Run progress bar
+            progressBar.style.width = `${Number.parseInt(current * maxWidthProgress / duration)}px`;
     
             // If current time = max time 
             if(current === duration) {
@@ -120,7 +137,6 @@ const play = () => {
 
                     // Check last song
                     id = id === album.length ? 0 : id + 1;
-                    renderSong(id);
                 }
                 play();
             }
@@ -137,7 +153,24 @@ const play = () => {
     }
 }
 
+const moveProgress = e => {
+    // Get distance between left viewport and position of progress
+    const leftProgressCoords = e.currentTarget.getBoundingClientRect().left;
+    
+    // Get x coordinate of cursor 
+    const xCursor = e.x;
+
+    // Subtraction = current progress 
+    const dest = xCursor - leftProgressCoords;
+    progressBar.style.width = `${dest}px`;
+
+    // Edit time of song 
+    current = audio.currentTime = Number.parseInt(dest / maxWidthProgress * duration);
+    currentTime.textContent = handleTime(current);
+}
+
 window.addEventListener('load', init);
 btnListen.addEventListener('click', play);
 btnRepeat.addEventListener('click', repeat);
 btnHeart.addEventListener('click', heartify);
+progress.addEventListener('mousedown', moveProgress);

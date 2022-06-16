@@ -1,5 +1,12 @@
 const album = [
   {
+    name: "Anh đánh rơi người yêu này",
+    artist: "Andiez - AMEE",
+    img: "images/music-0.jpeg",
+    src: "songs/music-0.mp3",
+    heart: false,
+  },
+  {
     name: "Harley Bird - Home",
     artist: "Jordan Schor",
     img: "images/music-1.jpg",
