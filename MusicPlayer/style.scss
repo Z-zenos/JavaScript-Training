@@ -101,7 +101,7 @@ html {
     &__progress-bar {
         position: absolute;
         @include gradient();
-        width: 42%;
+        width: 0;
         height: 100%;
         border-radius: inherit;
     }
@@ -171,8 +171,6 @@ html {
                     left: 50%;
                     transform: translate(-50%, -50%);
                 }
-                
-                
             }
         }
     }
@@ -186,8 +184,8 @@ i {
 
 .fa-play,
 .fa-pause,
-.fa-repeat,
-.fa-repeat-1,
+.mi-repeat,
+.mi-repeat-1,
 .fa-heart {
     display: none;
     opacity: 0;
@@ -195,9 +193,135 @@ i {
 
 .fa-play.active,
 .fa-pause.active,
-.fa-repeat.active,
-.fa-repeat-1.active,
+.mi-repeat.active,
+.mi-repeat-1.active,
 .fa-heart.active {
     opacity: 1;
     display: block;
+}
+
+.btn-shuffle {
+    color: #ccc;
+}
+
+.btn-shuffle.active {
+    @include textGradient();
+}
+
+.list {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+    opacity: 0;
+    z-index: -1;
+    border-radius: 1rem;
+    background-color: $color-white;
+    box-shadow: 0 1.5rem 4rem rgba($color-black, .15);
+    padding: 2rem;
+    transition: all .4s ease;
+    max-height: 41rem;
+    overflow: scroll;
+
+    &__header {
+        @include textGradient();
+        font-size: 2.5rem;
+        margin-bottom: 1.7rem;
+    }
+
+
+    ul > :not(:last-child) {
+        margin-bottom: 1.5rem;
+    }
+
+    &__item {
+        @include flexMusic();
+        width: 22rem;
+        box-shadow: 0 0 .5rem rgba($color-black, .5);
+        border-radius: 5rem;
+        padding-left: 1.6rem;
+        transition: all .4s ease;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+
+        &.active {
+            i {
+                position: absolute;
+                display: block;
+                opacity: 1;
+                top: 60%;
+                transform: translateY(-50%);
+                left: -1.4rem;
+                font-size: 6rem;
+                z-index: 1;
+            }
+
+            .list__number {
+                color: $color-white;
+            }
+        }
+
+        &.running {
+            border: 5px solid $color-pink-dark;
+
+            img {
+                animation: spin 11s linear infinite;
+            }
+        }
+    }
+
+    &__item:hover {
+        outline-offset: 5px;
+        outline: .2rem solid $color-pink-dark;
+        transform: scale(1.1);
+    }
+
+    &__number {
+        z-index: 10;
+    }
+
+    &__info {
+        text-align: left;
+        line-height: 1.7rem;
+    }
+
+    &__name {
+        font-size: 1.6rem;
+    }
+
+    &__author {
+        font-size: 1.2rem;
+    }   
+
+    &__image {
+        width: 5rem;
+        height: 5rem;
+        
+        img {
+            width: 100%;
+            height: 100%;
+            border-radius: 5rem;
+        }
+    }
+
+    &.active {
+        right: -26.5rem;
+        opacity: 1;
+        z-index: 12;
+    }
+}
+
+@keyframes spin {
+    0%   { rotate: 0;      }
+    10%  { rotate: 36deg;  }
+    20%  { rotate: 72deg;  }
+    30%  { rotate: 108deg; }
+    40%  { rotate: 144deg; }
+    50%  { rotate: 180deg; }
+    60%  { rotate: 216deg; }
+    70%  { rotate: 252deg; }
+    80%  { rotate: 288deg; }
+    90%  { rotate: 324deg; }
+    100% { rotate: 360deg; }
 }

@@ -72,7 +72,7 @@ html {
 .music__progress-bar {
   position: absolute;
   background: linear-gradient(to bottom right, #f773a4, #936a93);
-  width: 42%;
+  width: 0;
   height: 100%;
   border-radius: inherit;
 }
@@ -151,8 +151,8 @@ i {
 
 .fa-play,
 .fa-pause,
-.fa-repeat,
-.fa-repeat-1,
+.mi-repeat,
+.mi-repeat-1,
 .fa-heart {
   display: none;
   opacity: 0;
@@ -160,11 +160,147 @@ i {
 
 .fa-play.active,
 .fa-pause.active,
-.fa-repeat.active,
-.fa-repeat-1.active,
+.mi-repeat.active,
+.mi-repeat-1.active,
 .fa-heart.active {
   opacity: 1;
   display: block;
+}
+
+.btn-shuffle {
+  color: #ccc;
+}
+
+.btn-shuffle.active {
+  background: linear-gradient(to bottom right, #f773a4, #936a93);
+  color: transparent;
+  background-clip: text;
+}
+
+.list {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  opacity: 0;
+  z-index: -1;
+  border-radius: 1rem;
+  background-color: #fff;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+  padding: 2rem;
+  transition: all 0.4s ease;
+  max-height: 41rem;
+  overflow: scroll;
+}
+.list__header {
+  background: linear-gradient(to bottom right, #f773a4, #936a93);
+  color: transparent;
+  background-clip: text;
+  font-size: 2.5rem;
+  margin-bottom: 1.7rem;
+}
+.list ul > :not(:last-child) {
+  margin-bottom: 1.5rem;
+}
+.list__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 22rem;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
+  border-radius: 5rem;
+  padding-left: 1.6rem;
+  transition: all 0.4s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.list__item.active i {
+  position: absolute;
+  display: block;
+  opacity: 1;
+  top: 60%;
+  transform: translateY(-50%);
+  left: -1.4rem;
+  font-size: 6rem;
+  z-index: 1;
+}
+.list__item.active .list__number {
+  color: #fff;
+}
+.list__item.running {
+  border: 5px solid #936a93;
+}
+.list__item.running img {
+  animation: spin 11s linear infinite;
+}
+.list__item:hover {
+  outline-offset: 5px;
+  outline: 0.2rem solid #936a93;
+  transform: scale(1.1);
+}
+.list__number {
+  z-index: 10;
+}
+.list__info {
+  text-align: left;
+  line-height: 1.7rem;
+}
+.list__name {
+  font-size: 1.6rem;
+}
+.list__author {
+  font-size: 1.2rem;
+}
+.list__image {
+  width: 5rem;
+  height: 5rem;
+}
+.list__image img {
+  width: 100%;
+  height: 100%;
+  border-radius: 5rem;
+}
+.list.active {
+  right: -26.5rem;
+  opacity: 1;
+  z-index: 12;
+}
+
+@keyframes spin {
+  0% {
+    rotate: 0;
+  }
+  10% {
+    rotate: 36deg;
+  }
+  20% {
+    rotate: 72deg;
+  }
+  30% {
+    rotate: 108deg;
+  }
+  40% {
+    rotate: 144deg;
+  }
+  50% {
+    rotate: 180deg;
+  }
+  60% {
+    rotate: 216deg;
+  }
+  70% {
+    rotate: 252deg;
+  }
+  80% {
+    rotate: 288deg;
+  }
+  90% {
+    rotate: 324deg;
+  }
+  100% {
+    rotate: 360deg;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Player</title>
     <script src="https://kit.fontawesome.com/4f1089ffd1.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
     <div class="music">
@@ -31,8 +34,8 @@
             <div class="music__btn-box--left">
                 <i class="fa-solid fa-shuffle btn-shuffle"></i>
                 <div class="repeat">
-                    <i class="fa-solid fa-repeat-1"></i>
-                    <i class="fa-solid fa-repeat active"></i>
+                    <i class="material-icons mi-repeat active">repeat</i>
+                    <i class="material-icons mi-repeat-1">repeat_one</i>
                 </div>
             </div>
             <div class="music__btn-box--middle">
@@ -51,8 +54,11 @@
                     <i class="fa-solid fa-heart"></i>
                 </div>
             </div>
-            
-            
+            <div class="list">
+                <h3 class="list__header">ALbum</h3>
+                <ul class="list__lists">
+                </ul>
+            </div>
         </div>
     </div>
     <script src="album.js"></script>

@@ -1,10 +1,10 @@
 const album = [
   {
     name: "Anh đánh rơi người yêu này",
-    artist: "Andiez - AMEE",
+    artist: "Andiez x AMEE",
     img: "images/music-0.jpeg",
     src: "songs/music-0.mp3",
-    heart: false,
+    heart: true,
   },
   {
     name: "Harley Bird - Home",
@@ -39,7 +39,7 @@ const album = [
     artist: "Jim Yosef x Roy",
     img: "images/music-5.jpg",
     src: "songs/music-5.mp3",
-    heart: false,
+    heart: true,
   },
   {
     name: "Lost Sky - Vision NCS",
