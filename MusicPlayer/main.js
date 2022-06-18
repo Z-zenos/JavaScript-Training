@@ -141,7 +141,7 @@ const reset = () => {
     audio.currentTime = current = 0;
     // audio.pause();
     clearInterval(timerId);
-    switchify(play_pause);
+    // switchify(play_pause);
 }
 
 const tick = () => {
@@ -170,10 +170,13 @@ const play = () => {
     renderSong(id);
 
     isPlaying = !isPlaying;
-    // Switch play icon and pause icon 
-    switchify(play_pause);
 
     if(isPlaying) {
+        [...play_pause].forEach(p => {
+            p.classList.remove('active');
+            if(p.classList.contains('fa-pause'))
+                p.classList.add('active');
+        });
         // Spin disk 
         listSong.forEach((l, i) => {
             l.classList.remove('running');
@@ -184,6 +187,11 @@ const play = () => {
         timerId = setInterval(tick, 1000);
     }
     else {
+        [...play_pause].forEach(p => {
+            p.classList.remove('active');
+            if(p.classList.contains('fa-play'))
+                p.classList.add('active');
+        });
         audio.pause();
         clearInterval(timerId);
     }
@@ -234,18 +242,20 @@ const nextSong = function() {
 }
 
 const chooseSong = (e) => {
+    // Check correct element
     const song = e.target.closest('.list__item');
     if(!song)   return;
+
+    // Get song id
     id = +song.dataset.id;
     isNewSong = true;
+
     reset();
     clearAudio();
     play();
 }
 
-const displayList = () => {
-    list.classList.toggle('active');
-}
+const displayList = () => list.classList.toggle('active');
 
 window.addEventListener('load', init);
 btnListen.addEventListener('click', play);
