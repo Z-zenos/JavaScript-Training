@@ -2,11 +2,14 @@
 
 
 $color-white: #fff;
-$color-grey: #f2f2f2;
+$color-grey: #f1f1f1;
 $color-black: #000;
 $color-orange-dark:#F27D16;
 $color-orange-light: #F2B035;
 $color-background: #333;
+$color-green: #61ce6a;
+$transition: all .4s ease;
+$big-pointer: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC) 14 0, pointer;
 
 @font-face {
     font-family: old1982;
@@ -41,7 +44,7 @@ html {
 
 .pixel {
     width: 80rem;
-    height: 60rem;
+    height: 63rem;
     background-color: $color-background;
     box-shadow: 0 1.5rem 4rem rgba($color-black, .15);
     border-radius: 1rem;
@@ -65,7 +68,7 @@ html {
         "container container container container tools"
         "container container container container tools"
         "container container container container tools"
-        "container container container container tools"
+        "container container container container gallery"
     ;
 
     & > * {
@@ -83,7 +86,11 @@ html {
 
     &__logo {
         grid-area: logo;
-        background-color: blue;
+        color: $color-white;
+        font-size: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     &__container {
@@ -95,15 +102,93 @@ html {
     }
 
     &__tools {
-        background-color: green;
-        grid-row: tools;
+        
+        grid-area: tools;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        place-items: center;
+        padding: 0 2rem;
+        
+        .tool {
+            color: $color-white;
+            cursor: $big-pointer;
+
+
+            i {
+                font-size: 3rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 7rem;
+                height: 7rem;
+                transition: $transition;
+
+                &:hover {
+                    background-color: $color-green;
+                    transform: scale(1.2);  
+                    box-shadow: 1rem 1rem 3rem rgba($color-black, .8);
+                }
+            }
+        }
+    }
+
+    &__gallery {
+        grid-area: gallery;
+        padding: 0 2rem;
+
+        ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            place-items: center;
+            cursor: $big-pointer;
+            margin: 3rem 0;
+
+            li {
+                width: 100%;
+                height: 4rem;  
+                transition: $transition;
+
+                &:hover {
+                    border: 3px solid $color-black;
+                }
+            }
+
+        }
+
+        .range {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            &-number {
+                color: $color-white;
+                font-weight: 700;
+                font-size: 2rem;
+            }
+
+            input {
+                flex-basis: 80%;
+                width: 100%;
+                cursor: $big-pointer;
+            }
+        }
+
     }
 
     &__box {
         width: 10px;
         height: 10px;
-        background-color: red;
-        display: inline-block;
+        display: block;
+        float: left;
+        
+        &--white {
+            background-color: $color-white;
+        }
+
+        &--grey {
+            background-color: $color-grey;
+        }
     }
 }
 
@@ -118,6 +203,6 @@ html {
     border-radius: 1rem;
     font-weight: 700;
     box-shadow: 0 0 2rem rgba($color-black, .3);
-    transition: all .4s ease;
+    transition: $transition;
 
 }

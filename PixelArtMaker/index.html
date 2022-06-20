@@ -8,6 +8,7 @@
     <script src="https://kit.fontawesome.com/4f1089ffd1.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
+    <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="data:;base64,iVBORw0KGgo=">
 
@@ -15,25 +16,49 @@
 <body>
     <div class="pixel">
         <div class="pixel__menu">
-            <button class="btn btn__new">New</button>
+            <!-- <button class="btn btn__new">New</button>
             <button class="btn btn__import">import</button>
             <button class="btn btn__export">Export</button>
-            <button class="btn btn__export">Help</button>
+            <button class="btn btn__export">Help</button> -->
+
+            <button type="button" class="nes-btn is-primary">NEW</button>
+            <button type="button" class="nes-btn is-success">IMPORT</button>
+            <button type="button" class="nes-btn is-warning">EXPORT</button>
+            <button type="button" class="nes-btn is-error">HELP</button>
+
         </div>
         <div class="pixel__logo">PIXELzcd</div>
         <div class="pixel__container">
         </div>
         <div class="pixel__tools">
-            <div class="tool tool--paint"></div>
-            <div class="tool tool--brush"></div>
-            <div class="tool tool--erase"></div>
-            <div class="tool tool--select"></div>
-            <div class="tool tool--text"></div>
-            <div class="tool tool--gallery"></div>
-
+            <div class="tool tool--paint"><i class="fa-solid fa-pen"></i></div>
+            <div class="tool tool--brush"><i class="fa-solid fa-paintbrush"></i></div>
+            <div class="tool tool--erase"><i class="fa-solid fa-eraser"></i></div>
+            <div class="tool tool--select"><i class="fa-regular fa-square"></i></div>
+            <div class="tool tool--text"><i class="fa-solid fa-font"></i></div>
+            <div class="tool tool--more-color"><i class="fa-solid fa-plus"></i></div>
+        </div>
+        <div class="pixel__gallery">
+            <ul>
+                <li class="color color--1"></li>
+                <li class="color color--2"></li>
+                <li class="color color--3"></li>
+                <li class="color color--4"></li>
+                <li class="color color--5"></li>
+                <li class="color color--6"></li>
+                <li class="color color--7"></li>
+                <li class="color color--8"></li>
+                <li class="color color--9"></li>
+                <li class="color color--10"></li>
+                <li class="color color--11"></li>
+                <li class="color color--12"></li>
+            </ul>
+            <div class="range">
+                <span class="range-number">8</span>
+                <input type="range" name="" id="">
+            </div>
         </div>
     </div>
-
     <script src="main.js"></script>
 </body>
 </html>

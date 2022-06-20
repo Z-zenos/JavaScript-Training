@@ -29,7 +29,7 @@ html {
 
 .pixel {
   width: 80rem;
-  height: 60rem;
+  height: 63rem;
   background-color: #333;
   box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
   border-radius: 1rem;
@@ -42,7 +42,7 @@ html {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: auto;
-  grid-template-areas: "menu menu menu menu logo" "container container container container logo" "container container container container tools" "container container container container tools" "container container container container tools" "container container container container tools" "container container container container tools" "container container container container tools";
+  grid-template-areas: "menu menu menu menu logo" "container container container container logo" "container container container container tools" "container container container container tools" "container container container container tools" "container container container container tools" "container container container container tools" "container container container container gallery";
 }
 .pixel > * {
   border-radius: inherit;
@@ -57,7 +57,11 @@ html {
 }
 .pixel__logo {
   grid-area: logo;
-  background-color: blue;
+  color: #fff;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .pixel__container {
   grid-area: container;
@@ -67,14 +71,77 @@ html {
   margin-left: 2rem;
 }
 .pixel__tools {
-  background-color: green;
-  grid-row: tools;
+  grid-area: tools;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  place-items: center;
+  padding: 0 2rem;
+}
+.pixel__tools .tool {
+  color: #fff;
+  cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC) 14 0, pointer;
+}
+.pixel__tools .tool i {
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 7rem;
+  height: 7rem;
+  transition: all 0.4s ease;
+}
+.pixel__tools .tool i:hover {
+  background-color: #61ce6a;
+  transform: scale(1.2);
+  box-shadow: 1rem 1rem 3rem rgba(0, 0, 0, 0.8);
+}
+.pixel__gallery {
+  grid-area: gallery;
+  padding: 0 2rem;
+}
+.pixel__gallery ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  place-items: center;
+  cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC) 14 0, pointer;
+  margin: 3rem 0;
+}
+.pixel__gallery ul li {
+  width: 100%;
+  height: 4rem;
+  transition: all 0.4s ease;
+}
+.pixel__gallery ul li:hover {
+  border: 3px solid #000;
+}
+.pixel__gallery .range {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.pixel__gallery .range-number {
+  color: #fff;
+  font-weight: 700;
+  font-size: 2rem;
+}
+.pixel__gallery .range input {
+  flex-basis: 80%;
+  width: 100%;
+  cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC) 14 0, pointer;
 }
 .pixel__box {
   width: 10px;
   height: 10px;
-  background-color: red;
-  display: inline-block;
+  display: block;
+  float: left;
+}
+.pixel__box--white {
+  background-color: #fff;
+}
+.pixel__box--grey {
+  background-color: #f1f1f1;
 }
 
 .btn {
