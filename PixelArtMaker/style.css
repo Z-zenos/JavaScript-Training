@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Poppins:wght@100;300;400;500;700&display=swap");
+@font-face {
+  font-family: old1982;
+  src: url(fonts/back-to-1982/BACKTO1982.TTF);
+}
+@font-face {
+  font-family: blox;
+  src: url(fonts/blox-brk/Blox2.ttf);
+}
+@font-face {
+  font-family: minecraft;
+  src: url(fonts/minecraft/Minecraft.ttf);
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: old1982;
+  height: 100vh;
+  background-color: #F27D16;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+.pixel {
+  width: 80rem;
+  height: 60rem;
+  background-color: #333;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+  border-radius: 1rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  /* ===============  CREATE GRID TEMPLATE =============== */
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: auto;
+  grid-template-areas: "menu menu menu menu logo" "container container container container logo" "container container container container tools" "container container container container tools" "container container container container tools" "container container container container tools" "container container container container tools" "container container container container tools";
+}
+.pixel > * {
+  border-radius: inherit;
+}
+.pixel__menu {
+  grid-area: menu;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 3rem;
+  align-items: center;
+  padding: 1.8rem 2rem;
+}
+.pixel__logo {
+  grid-area: logo;
+  background-color: blue;
+}
+.pixel__container {
+  grid-area: container;
+  background-color: yellow;
+  width: 60rem;
+  height: 50rem;
+  margin-left: 2rem;
+}
+.pixel__tools {
+  background-color: green;
+  grid-row: tools;
+}
+.pixel__box {
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  display: inline-block;
+}
+
+.btn {
+  font-family: old1982;
+  padding: 1.6rem;
+  font-size: 1.5rem;
+  outline: none;
+  border: 2px solid #000;
+  cursor: pointer;
+  letter-spacing: 2px;
+  border-radius: 1rem;
+  font-weight: 700;
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
+  transition: all 0.4s ease;
+}
+
+/*# sourceMappingURL=style.css.map */
