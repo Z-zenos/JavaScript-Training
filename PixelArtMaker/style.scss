@@ -2,12 +2,13 @@
 
 
 $color-white: #fff;
-$color-grey: #f1f1f1;
+$color-grey: #e0e0e0;
 $color-black: #000;
 $color-orange-dark:#F27D16;
 $color-orange-light: #F2B035;
 $color-background: #333;
 $color-green: #61ce6a;
+
 $transition: all .4s ease;
 $big-pointer: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC) 14 0, pointer;
 
@@ -91,6 +92,7 @@ html {
         display: flex;
         justify-content: center;
         align-items: center;
+        padding-right: 2rem;
     }
 
     &__container {
@@ -107,26 +109,21 @@ html {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         place-items: center;
-        padding: 0 2rem;
+        padding: 0 2rem 0 1rem;
+        gap: 2rem;
         
         .tool {
             color: $color-white;
             cursor: $big-pointer;
 
-
-            i {
-                font-size: 3rem;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 7rem;
-                height: 7rem;
+            img {
+                width: 80%;
+                height: 80%;
                 transition: $transition;
 
                 &:hover {
-                    background-color: $color-green;
                     transform: scale(1.2);  
-                    box-shadow: 1rem 1rem 3rem rgba($color-black, .8);
+                    box-shadow: 1rem 1rem 3rem rgba($color-black, .15);
                 }
             }
         }
@@ -134,7 +131,7 @@ html {
 
     &__gallery {
         grid-area: gallery;
-        padding: 0 2rem;
+        padding: 0 2rem 0 1rem;
 
         ul {
             list-style: none;
@@ -181,6 +178,7 @@ html {
         height: 10px;
         display: block;
         float: left;
+        cursor: pointer;
         
         &--white {
             background-color: $color-white;

@@ -62,6 +62,7 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-right: 2rem;
 }
 .pixel__container {
   grid-area: container;
@@ -75,29 +76,25 @@ html {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   place-items: center;
-  padding: 0 2rem;
+  padding: 0 2rem 0 1rem;
+  gap: 2rem;
 }
 .pixel__tools .tool {
   color: #fff;
   cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC) 14 0, pointer;
 }
-.pixel__tools .tool i {
-  font-size: 3rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 7rem;
-  height: 7rem;
+.pixel__tools .tool img {
+  width: 80%;
+  height: 80%;
   transition: all 0.4s ease;
 }
-.pixel__tools .tool i:hover {
-  background-color: #61ce6a;
+.pixel__tools .tool img:hover {
   transform: scale(1.2);
-  box-shadow: 1rem 1rem 3rem rgba(0, 0, 0, 0.8);
+  box-shadow: 1rem 1rem 3rem rgba(0, 0, 0, 0.15);
 }
 .pixel__gallery {
   grid-area: gallery;
-  padding: 0 2rem;
+  padding: 0 2rem 0 1rem;
 }
 .pixel__gallery ul {
   list-style: none;
@@ -136,12 +133,13 @@ html {
   height: 10px;
   display: block;
   float: left;
+  cursor: pointer;
 }
 .pixel__box--white {
   background-color: #fff;
 }
 .pixel__box--grey {
-  background-color: #f1f1f1;
+  background-color: #e0e0e0;
 }
 
 .btn {
