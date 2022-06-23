@@ -1,4 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Poppins:wght@100;300;400;500;700&display=swap");
+:root {
+  --color-current: #000;
+}
+
 @font-face {
   font-family: old1982;
   src: url(fonts/back-to-1982/BACKTO1982.TTF);
@@ -66,10 +70,30 @@ html {
 }
 .pixel__container {
   grid-area: container;
-  background-color: yellow;
   width: 60rem;
   height: 50rem;
   margin-left: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.pixel__box {
+  width: 10px;
+  height: 10px;
+  cursor: auto;
+}
+.pixel__box--white {
+  background-color: #fff;
+}
+.pixel__box--grey {
+  background-color: #e0e0e0;
+}
+.pixel__box.active {
+  background-color: var(--color-current);
+}
+.pixel__box:hover {
+  background-color: #3e3e3e;
 }
 .pixel__tools {
   grid-area: tools;
@@ -127,19 +151,6 @@ html {
   flex-basis: 80%;
   width: 100%;
   cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAzElEQVRYR+2X0Q6AIAhF5f8/2jYXZkwEjNSVvVUjDpcrGgT7FUkI2D9xRfQETwNIiWO85wfINfQUEyxBG2ArsLwC0jioGt5zFcwF4OYDPi/mBYKm4t0U8ATgRm3ThFoAqkhNgWkA0jJLvaOVSs7j3qMnSgXWBMiWPXe94QqMBMBc1VZIvaTu5u5pQewq0EqNZvIEMCmxAawK0DNkay9QmfFNAJUXfgGgUkLaE7j/h8fnASkxHTz0DGIBMCnBeeM7AArpUd3mz2x3C7wADglA8BcWMZhZAAAAAElFTkSuQmCC) 14 0, pointer;
-}
-.pixel__box {
-  width: 10px;
-  height: 10px;
-  display: block;
-  float: left;
-  cursor: pointer;
-}
-.pixel__box--white {
-  background-color: #fff;
-}
-.pixel__box--grey {
-  background-color: #e0e0e0;
 }
 
 .btn {
