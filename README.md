@@ -1,2 +1,3 @@
 # JavaScript-Training
-Training javascript in 2 month by myself
+
+Training javascript in 1 month by myself
