@@ -16,8 +16,8 @@ let currentColor,
     coordX, coordY,
     mode;
 
-const _color_black_ = '#000',
-      _color_white_ = '#fff',
+const _color_black_ = '#000000',
+      _color_white_ = '#ffffff',
       _color_grey_ = '#e0e0e0',
       _color_hover_ = '#bfbfbf';
 
@@ -108,8 +108,17 @@ const tools = e => {
 }
 
 
+const rgbToHex = (r, g, b) => '#' + [r, g, b]
+                                        .map(x => x.toString(16)
+                                        .padStart(2, '0'))
+                                        .join('')
+                                        .toUpperCase();
+
 const pickColor = e => {
     currentColor = window.getComputedStyle(e.target).backgroundColor;
+    currentColor = rgbToHex(...currentColor
+        .match(/\d+/g)
+        .map(n => +n));
 }
 
 const hover = e => {
@@ -119,6 +128,11 @@ const hover = e => {
     const x = Math.trunc((e.layerX - coordX) / 10) * 10,
           y = Math.trunc((e.layerY - coordY) / 10) * 10;
     
+    // Get rgb color of current cell, if color of this cell not is default color(white, grey) then skip and not hover
+    const [r, g, b] = ctx.getImageData(x, y, 10, 10).data;
+    if(rgbToHex(r, g, b) === currentColor.toUpperCase()) return;
+
+
     // Hover color 
     ctx.fillStyle = _color_hover_;
     ctx.fillRect(x, y, 10, 10);
