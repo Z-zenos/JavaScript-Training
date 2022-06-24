@@ -70,30 +70,9 @@ html {
 }
 .pixel__container {
   grid-area: container;
-  width: 60rem;
-  height: 50rem;
   margin-left: 2rem;
-  display: flex;
-  flex-wrap: wrap;
-  user-select: none;
-  -webkit-user-select: none;
-}
-.pixel__box {
-  width: 10px;
-  height: 10px;
+  border-radius: 0;
   cursor: auto;
-}
-.pixel__box--white {
-  background-color: #fff;
-}
-.pixel__box--grey {
-  background-color: #e0e0e0;
-}
-.pixel__box.active {
-  background-color: var(--color-current);
-}
-.pixel__box:hover {
-  background-color: #3e3e3e;
 }
 .pixel__tools {
   grid-area: tools;
@@ -113,7 +92,7 @@ html {
   transition: all 0.4s ease;
 }
 .pixel__tools .tool img:hover {
-  transform: scale(1.2);
+  transform: rotate(-45deg) scale(1.2);
   box-shadow: 1rem 1rem 3rem rgba(0, 0, 0, 0.15);
 }
 .pixel__gallery {

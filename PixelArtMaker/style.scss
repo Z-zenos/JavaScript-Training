@@ -99,37 +99,36 @@ html {
 
     &__container {
         grid-area: container;
-        width: 60rem;
-        height: 50rem;
         margin-left: 2rem;
-        display: flex;
-        flex-wrap: wrap;
+        // display: flex;
+        // flex-wrap: wrap;
         // Prevent drag pixel
-        user-select: none;
-        -webkit-user-select: none;
-    }
-
-    &__box {
-        width: 10px;
-        height: 10px;
+        border-radius: 0;
         cursor: auto;
-
-        &--white {
-            background-color: $color-white;
-        }
-
-        &--grey {
-            background-color: $color-grey;
-        }
-
-        &.active {
-            background-color: var(--color-current);
-        }
-
-        &:hover {
-            background-color: #3e3e3e;
-        }
     }
+
+    // &__box {
+    //     width: 10px;
+    //     height: 10px;
+    //     cursor: auto;
+    //     z-index: 10;
+
+    //     &--white {
+    //         background-color: $color-white;
+    //     }
+
+    //     &--grey {
+    //         background-color: $color-grey;
+    //     }
+
+    //     // &.active {
+    //     //     background-color: var(--color-current);
+    //     // }
+
+    //     &:hover {
+    //         background-color: #3e3e3e;
+    //     }
+    // }
 
     &__tools {
         
@@ -150,7 +149,7 @@ html {
                 transition: $transition;
 
                 &:hover {
-                    transform: scale(1.2);  
+                    transform: rotate(-45deg) scale(1.2);  
                     box-shadow: 1rem 1rem 3rem rgba($color-black, .15);
                 }
             }

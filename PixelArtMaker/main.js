@@ -1,16 +1,25 @@
 
 /* ================ VARIABLE ================ */
 
-const container = document.querySelector('.pixel__container'),
+const pixel = document.querySelector('.pixel'),
+      canvas = document.getElementById('canvas'),
       colorList = document.querySelectorAll('.pixel__gallery .color'),
       root = document.documentElement,
       eraser = document.querySelector('.tool--erase'),
       images = document.querySelectorAll('img'),
-      gallery = document.querySelector('.pixel__gallery');
+      gallery = document.querySelector('.pixel__gallery'),
+      btnNew = document.querySelector('.new'),
+      btnPen = document.querySelector('.tool--paint');
 
-let currentColor;
+let currentColor,
+    ctx,
+    coordX, coordY,
+    mode;
 
-
+const _color_black_ = '#000',
+      _color_white_ = '#fff',
+      _color_grey_ = '#e0e0e0',
+      _color_hover_ = '#bfbfbf';
 
 const popularColors = [
     "#F20505", "#05F2DB", "#F2CB05", "#F28705",
@@ -19,70 +28,153 @@ const popularColors = [
 ];
 
 
+const cursors = {
+    pen: "auto",
+    erase: "url('./cursor/Eraser-icon.png'), auto"
+}
+
+
 /* ================ HANDLE EVENT ================ */
 
 const createGrid = () => {
-    const width = Number.parseInt(window.getComputedStyle(container).width) / 10;
-    const height = Number.parseInt(window.getComputedStyle(container).height) / 10;
+    // Unit is rem 
+    const width = 60;   // 60 rem = 600px
+    const height = 50;
     
-    let first = 'white', second = 'grey';
-    console.log(height * width);
+    // Rendering context and draw functions
+    ctx = canvas.getContext('2d');
+
+    // Default color of grid canvas
+    let first = _color_white_, second = _color_grey_;
+
     for(let i = 0; i < height; i++) {
-        // each even or odd line will change the order in which it appears white or gray
+        // Swap color 
         [first, second] = [second, first];
         for(let j = 0; j < width; j++) {
-            container.insertAdjacentHTML('beforeend', 
-                `
-                    <div class="pixel__box pixel__box--${j % 2 ? first : second}"></div>
-                `
-            );
+            ctx.fillStyle = j % 2 ? first : second;
+            ctx.fillRect(j * 10, i * 10, 10, 10);
         }
-    
     }
+}
 
+// this = [mode, urlCursor]
+const changeMode = function() {
+    mode = this[0];
+    canvas.style.cursor = this[1];
 }
 
 const init = () => {
-    currentColor = '#000';
+    currentColor = _color_black_;
+    changeMode.call(['paint', cursors.pen]);
 
     // Create colors table 
     [...colorList].forEach((c, i) => c.style.backgroundColor = popularColors[i]);
     
     // Create grid area for painting
     createGrid();
-    
+
+    coordX = canvas.getBoundingClientRect().x - pixel.getBoundingClientRect().x;
+    coordY = canvas.getBoundingClientRect().y - pixel.getBoundingClientRect().y;
 }
 
-// const activatedMouseover = 
+// Function for drawing color in canvas
+const drawPixel = (x, y, color1, color2) => {
+    ctx.fillStyle = (x + y) / 10 % 2 === 0 ? color1 : color2; 
+    ctx.fillRect(x, y, 10, 10);
+}
 
-const paint = e => {
+const tools = e => {
     e.preventDefault();
-
-    const box = e.target;
-    if(!box.classList.contains('pixel__box'))    return;
     
-    box.classList.add('active');
+    // Round coord of box that is clicked
+    const x = Math.trunc((e.layerX - coordX) / 10) * 10,
+          y = Math.trunc((e.layerY - coordY) / 10) * 10;
+
+    // Draw
+    if(mode === 'paint') {
+        
+        drawPixel(x, y, currentColor, currentColor);
+    }
+
+    // Erase
+    if(mode === 'erase') { 
+        // The cells in the even position will be white (the position where the sum of the x and y coordinates is an even number is called an even cell).
+        // Erase 4 cell
+        drawPixel(x, y, _color_white_, _color_grey_);
+        drawPixel(x + 10, y, _color_white_, _color_grey_);
+        drawPixel(x, y + 10, _color_white_, _color_grey_);
+        drawPixel(x + 10, y + 10, _color_white_, _color_grey_);
+    }
 }
+
 
 const pickColor = e => {
-    if(!e.target.classList.contains('color')) return;
-
     currentColor = window.getComputedStyle(e.target).backgroundColor;
-    document.documentElement.style.setProperty('--color-current', currentColor);
-    // console.log(currentColor);
 }
 
+const hover = e => {
+    e.preventDefault();
+    
+    // Round coord of box that is clicked
+    const x = Math.trunc((e.layerX - coordX) / 10) * 10,
+          y = Math.trunc((e.layerY - coordY) / 10) * 10;
+    
+    // Hover color 
+    ctx.fillStyle = _color_hover_;
+    ctx.fillRect(x, y, 10, 10);
+
+    setTimeout(drawPixel.bind(null, x, y, _color_white_, _color_grey_), 100);
+}
+
+
+
+
 // use mousemove event instead of mouseover because mouse will change the first element while mouseover will change the second element.
-const activatedMousemove = () => container.addEventListener('mousemove', paint);
-const unActivatedMousemove = () => container.removeEventListener('mousemove', paint);
+const activatedMousemove = () => {
+    canvas.removeEventListener('mousemove', hover);
+    canvas.addEventListener('mousemove', tools);
+}
+const unActivatedMousemove = () => {
+    canvas.addEventListener('mousemove', hover);
+    canvas.removeEventListener('mousemove', tools);
+}
+
+
+
+// -------------- TOOLS ACTION ------------------
+
+eraser.addEventListener('click', changeMode.bind(['erase', cursors.erase]));
+btnPen.addEventListener('click', changeMode.bind(['paint', cursors.pen]));
+
+// -----------------------------------------------
+
+
+
+
+// -------------- INIT ACTION ------------------
 
 window.addEventListener('load', init);
+btnNew.addEventListener('click', init);
 
-container.addEventListener('mousedown', activatedMousemove);
-container.addEventListener('mouseup', unActivatedMousemove);
-container.addEventListener('mouseleave', unActivatedMousemove);
-container.addEventListener('click', paint);
-container.addEventListener('contextmenu', e => e.preventDefault());
+// -----------------------------------------------
 
+
+
+
+
+// -------------- CANVAS ACTION ------------------
+
+canvas.addEventListener('mousedown', activatedMousemove);
+canvas.addEventListener('mouseup', unActivatedMousemove);
+canvas.addEventListener('mouseout', unActivatedMousemove);
+canvas.addEventListener('click', tools);
+canvas.addEventListener('contextmenu', e => e.preventDefault());
+canvas.addEventListener('mousemove', hover);
+
+// -----------------------------------------------
 
 gallery.addEventListener('click', pickColor);
+
+
+
+
