@@ -17,7 +17,7 @@ const pixel = document.querySelector('.pixel'),
 let currentColor,
     ctx,
     coordX, coordY,
-    mode, img;
+    mode, isHover, img;
 
 const _color_black_ = '#000000',
       _color_white_ = '#ffffff',
@@ -68,6 +68,8 @@ const changeMode = function() {
 }
 
 const init = () => {
+    img = new Image();
+    isHover = true;
     currentColor = _color_black_;
     changeMode.call(['paint', cursors.pen]);
 
@@ -146,31 +148,45 @@ const hover = e => {
     setTimeout(drawPixel.bind(null, x, y, _color_white_, _color_grey_), 100);
 }
 
-const pixelatedImg = () => {
+const pixelatedImg = function() {
     const size = 0.2,
           w = canvas.width * size,
           h = canvas.height * size;
 
+    // drawImage(image, dx, dy, dWidth, dHeight)
+    // draw image with width = 120, height = 100 at postion 0, 0
     ctx.drawImage(img, 0, 0, w, h);
-
+    
+    // Image's size smaller canvas's size. When draw image onto canvas, image will be enlarged and the default resizing algorithm will blur the pixels. Set imageSmoothingEnabled property to false to retain the pixels' sharpness. 
     ctx.msImageSmoothingEnabled = false;
     ctx.mozImageSmoothingEnabled = false;
     ctx.webkitImageSmoothingEnabled = false;
     ctx.imageSmoothingEnabled = false;
 
-    ctx.drawImage(canvas, 0, 0, w, h, 0, 0, canvas.width, canvas.height);
+    // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+    // Clip canvas with width = w = 120, height = h = 100 at position 0, 0 ( = drawn image), thereafter stretch image at position 0, 0 and with width = canvas.width = 600 and height = canvas.height = 500. Thus, image will fill canvas. 
+    ctx.drawImage(canvas, 0, 0, w, h, 0, 0, canvas.width, canvas.height); // ! Take the canvas containing the newly drawn image and draw that canvas on itself.
+
 }
 
 const importImage = () => {
+    // Get image file 
     inputFile.click();
-    // Stop hover event
-    canvas.removeEventListener('mousemove', hover);
-    img = new Image();
-
-    // make url from file that is chosen
-    img.src = window.URL.createObjectURL(inputFile.files[0]);
-    img.addEventListener('load', pixelatedImg);
-
+    
+    // If not choose image then return
+    if(!inputFile.value)    return;
+    URL.revokeObjectURL(img.src);   // Free memory for previous img
+    
+    inputFile.addEventListener('change', () => {
+        img = new Image();
+        // make url from file that is chosen
+        img.src = URL.createObjectURL(inputFile.files[0]);
+        img.addEventListener('load', pixelatedImg);
+        
+        // Stop hover event
+        isHover = false;
+        canvas.removeEventListener('mousemove', hover);
+    });
 }
 
 
@@ -190,7 +206,7 @@ const activatedMousemove = () => {
     canvas.addEventListener('mousemove', tools);
 }
 const unActivatedMousemove = () => {
-    canvas.addEventListener('mousemove', hover);
+    isHover && canvas.addEventListener('mousemove', hover);
     canvas.removeEventListener('mousemove', tools);
 }
 
