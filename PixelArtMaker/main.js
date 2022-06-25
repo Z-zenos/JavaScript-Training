@@ -149,6 +149,8 @@ const hover = e => {
 }
 
 const pixelatedImg = function() {
+    // Free memory
+    window.URL.revokeObjectURL(img.src);
     const size = 0.2,
           w = canvas.width * size,
           h = canvas.height * size;
@@ -164,9 +166,8 @@ const pixelatedImg = function() {
     ctx.imageSmoothingEnabled = false;
 
     // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-    // Clip canvas with width = w = 120, height = h = 100 at position 0, 0 ( = drawn image), thereafter stretch image at position 0, 0 and with width = canvas.width = 600 and height = canvas.height = 500. Thus, image will fill canvas. 
-    ctx.drawImage(canvas, 0, 0, w, h, 0, 0, canvas.width, canvas.height); // ! Take the canvas containing the newly drawn image and draw that canvas on itself.
-
+    // Clip canvas with width = w = 120, h
+    // URL.revokeObjectURL(img.src);   
 }
 
 const importImage = () => {
@@ -175,10 +176,10 @@ const importImage = () => {
     
     // If not choose image then return
     if(!inputFile.value)    return;
-    URL.revokeObjectURL(img.src);   // Free memory for previous img
     
     inputFile.addEventListener('change', () => {
         img = new Image();
+        console.log(inputFile);
         // make url from file that is chosen
         img.src = URL.createObjectURL(inputFile.files[0]);
         img.addEventListener('load', pixelatedImg);
