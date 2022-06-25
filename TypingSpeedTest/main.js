@@ -51,7 +51,7 @@ const displayResult = () => {
     ratio.textContent = `${((cpmCount ? (1 - mistakesCount / cpmCount) : 0) * 100).toFixed(2)}%`;
     level.textContent = calcScoreLevel(wpmCount - mistakesCount / timer);
 
-    // Turn of focus of input and turn off timer and disable input event of input
+    // Turn off focus of input and turn off timer and disable input event of input
     input.blur();
     clearInterval(timeId);
     input.removeEventListener('input', checkTyping);

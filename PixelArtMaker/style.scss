@@ -100,35 +100,9 @@ html {
     &__container {
         grid-area: container;
         margin-left: 2rem;
-        // display: flex;
-        // flex-wrap: wrap;
-        // Prevent drag pixel
         border-radius: 0;
         cursor: auto;
     }
-
-    // &__box {
-    //     width: 10px;
-    //     height: 10px;
-    //     cursor: auto;
-    //     z-index: 10;
-
-    //     &--white {
-    //         background-color: $color-white;
-    //     }
-
-    //     &--grey {
-    //         background-color: $color-grey;
-    //     }
-
-    //     // &.active {
-    //     //     background-color: var(--color-current);
-    //     // }
-
-    //     &:hover {
-    //         background-color: #3e3e3e;
-    //     }
-    // }
 
     &__tools {
         
@@ -152,6 +126,17 @@ html {
                     transform: rotate(-45deg) scale(1.2);  
                     box-shadow: 1rem 1rem 3rem rgba($color-black, .15);
                 }
+            }
+
+            input[type="text"] {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                opacity: 0;
+            }
+
+            input[type="color"] {
+                display: none;
             }
         }
     }
@@ -177,7 +162,6 @@ html {
                     border: 3px solid $color-black;
                 }
             }
-
         }
 
         .range {
@@ -197,6 +181,5 @@ html {
                 cursor: $big-pointer;
             }
         }
-
     }
 }

@@ -95,6 +95,15 @@ html {
   transform: rotate(-45deg) scale(1.2);
   box-shadow: 1rem 1rem 3rem rgba(0, 0, 0, 0.15);
 }
+.pixel__tools .tool input[type=text] {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+}
+.pixel__tools .tool input[type=color] {
+  display: none;
+}
 .pixel__gallery {
   grid-area: gallery;
   padding: 0 2rem 0 1rem;

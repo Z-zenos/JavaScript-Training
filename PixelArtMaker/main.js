@@ -1,3 +1,4 @@
+'use strict';
 
 /* ================ VARIABLE ================ */
 
@@ -12,12 +13,16 @@ const pixel = document.querySelector('.pixel'),
       btnPen = document.querySelector('.tool--paint'),
       btnImport = document.querySelector('.import'),
       btnExport = document.querySelector('.export'),
-      inputFile = document.getElementById('upload');
+      btnAddColor = document.querySelector('.tool--more-color'),
+      btnText = document.querySelector('.tool--text'),
+      inputFile = document.getElementById('upload'),
+      inputColor = document.querySelector('input[type="color"]'),
+      inputText = document.querySelector('input[type="text"]');
 
 let currentColor,
     ctx,
     coordX, coordY,
-    mode, isHover, img;
+    mode, isHover, img, coordText;
 
 const _color_black_ = '#000000',
       _color_white_ = '#ffffff',
@@ -68,6 +73,7 @@ const changeMode = function() {
 }
 
 const init = () => {
+    inputText.value = "";
     img = new Image();
     isHover = true;
     currentColor = _color_black_;
@@ -92,26 +98,60 @@ const drawPixel = (x, y, color1, color2) => {
     ctx.fillRect(x, y, 10, 10);
 }
 
+const drawText = function () {
+    // If text position reach canvas edge then enter new line
+    if(coordText.x === 600) {
+        coordText.x = 0;
+        coordText.y += 10;
+    }
+    // If 10 is not added into y coord, the text will appear in the box immediately above (because the coordinate system is reversed from normal).
+    ctx.fillText(inputText.value, coordText.x, coordText.y + 10);
+    coordText.x += 10;
+    inputText.value = "";
+}
+
 const tools = e => {
     e.preventDefault();
+
+    // Fire hover event
+    isHover = true;
+    canvas.addEventListener('mousemove', hover);
     
     // Round coord of box that is clicked
-    const x = Math.trunc((e.layerX - coordX) / 10) * 10,
-          y = Math.trunc((e.layerY - coordY) / 10) * 10;
-
+    let x = Math.trunc((e.layerX - coordX) / 10) * 10,
+        y = Math.trunc((e.layerY - coordY) / 10) * 10;
     // Draw
     if(mode === 'paint') {
         drawPixel(x, y, currentColor, currentColor);
     }
 
     // Erase
-    if(mode === 'erase') { 
+    else if(mode === 'erase') { 
         // The cells in the even position will be white (the position where the sum of the x and y coordinates is an even number is called an even cell).
         // Erase 4 cell
         drawPixel(x, y, _color_white_, _color_grey_);
         drawPixel(x + 10, y, _color_white_, _color_grey_);
         drawPixel(x, y + 10, _color_white_, _color_grey_);
         drawPixel(x + 10, y + 10, _color_white_, _color_grey_);
+    }
+
+    // Text
+    else if(mode === 'text') {
+        inputText.focus();
+
+        // Get coord of text
+        coordText = {
+            x: x,
+            y: y
+        }
+        
+        // Stop hover event
+        isHover = false;
+        canvas.removeEventListener('mousemove', hover);
+        
+        ctx.fillStyle = currentColor;
+        // Set font-family and font-size of text
+        ctx.font = '15px serif';
     }
 }
 
@@ -166,8 +206,7 @@ const pixelatedImg = function() {
     ctx.imageSmoothingEnabled = false;
 
     // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-    // Clip canvas with width = w = 120, h
-    // URL.revokeObjectURL(img.src);   
+    ctx.drawImage(canvas, 0, 0, w, h, 0, 0, canvas.width, canvas.height);
 }
 
 const importImage = () => {
@@ -199,6 +238,13 @@ const exportImage = () => {
     link.href = image;
     link.click();
 }
+
+// Pick more color
+const addColor = (e) => {
+    inputColor.click();
+    inputColor.addEventListener('change', () => currentColor = inputColor.value);
+}
+
 
 
 // use mousemove event instead of mouseover because mouse will change the first element while mouseover will change the second element.
@@ -249,3 +295,7 @@ gallery.addEventListener('click', pickColor);
 btnExport.addEventListener('click', exportImage);
 btnImport.addEventListener('click', importImage);
 
+btnAddColor.addEventListener('click', addColor);
+
+inputText.addEventListener('input', drawText);
+btnText.addEventListener('click', changeMode.bind(['text', cursors.pen]));
