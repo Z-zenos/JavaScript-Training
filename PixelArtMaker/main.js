@@ -22,7 +22,7 @@ const pixel = document.querySelector('.pixel'),
 let currentColor,
     ctx,
     coordX, coordY,
-    mode, isHover, img, coordText;
+    mode, isHover, img, coordText, font;
 
 const _color_black_ = '#000000',
       _color_white_ = '#ffffff',
@@ -98,15 +98,31 @@ const drawPixel = (x, y, color1, color2) => {
     ctx.fillRect(x, y, 10, 10);
 }
 
-const drawText = function () {
+const drawText = function (e) {
     // If text position reach canvas edge then enter new line
-    if(coordText.x === 600) {
+    if(coordText.x >= 590) {
         coordText.x = 0;
-        coordText.y += 10;
+        coordText.y += 30;
     }
-    // If 10 is not added into y coord, the text will appear in the box immediately above (because the coordinate system is reversed from normal).
-    ctx.fillText(inputText.value, coordText.x, coordText.y + 10);
-    coordText.x += 10;
+
+    if(e.key === "Backspace") {
+        drawPixel(coordText.x - 20, coordText.y, _color_white_, _color_grey_);
+        drawPixel(coordText.x - 10, coordText.y, _color_white_, _color_grey_);
+        drawPixel(coordText.x - 20, coordText.y + 10, _color_white_, _color_grey_);
+        drawPixel(coordText.x - 10, coordText.y + 10, _color_white_, _color_grey_);
+        drawPixel(coordText.x - 20, coordText.y + 20, _color_white_, _color_grey_);
+        drawPixel(coordText.x - 10, coordText.y + 20, _color_white_, _color_grey_);
+        coordText.x -= 20;
+    }
+    // Not fire for key such as shift, ctrl, alt, tab...
+    else if(e.keyCode >= 32) {
+
+        ctx.fillStyle = currentColor;
+        // If 20 is not added into y coord, the text will appear in the box immediately above (because the coordinate system is reversed from normal).
+        ctx.fillText(inputText.value, coordText.x, coordText.y + 20);
+        // Each letter will place 6 cells
+        coordText.x += 20;
+    }
     inputText.value = "";
 }
 
@@ -148,10 +164,8 @@ const tools = e => {
         // Stop hover event
         isHover = false;
         canvas.removeEventListener('mousemove', hover);
-        
-        ctx.fillStyle = currentColor;
         // Set font-family and font-size of text
-        ctx.font = '15px serif';
+        ctx.font = `19px old1982`;
     }
 }
 
@@ -297,5 +311,5 @@ btnImport.addEventListener('click', importImage);
 
 btnAddColor.addEventListener('click', addColor);
 
-inputText.addEventListener('input', drawText);
+inputText.addEventListener('keyup', drawText);
 btnText.addEventListener('click', changeMode.bind(['text', cursors.pen]));
