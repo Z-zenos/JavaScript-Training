@@ -9,12 +9,15 @@ const pixel = document.querySelector('.pixel'),
       images = document.querySelectorAll('img'),
       gallery = document.querySelector('.pixel__gallery'),
       btnNew = document.querySelector('.new'),
-      btnPen = document.querySelector('.tool--paint');
+      btnPen = document.querySelector('.tool--paint'),
+      btnImport = document.querySelector('.import'),
+      btnExport = document.querySelector('.export'),
+      inputFile = document.getElementById('upload');
 
 let currentColor,
     ctx,
     coordX, coordY,
-    mode;
+    mode, img;
 
 const _color_black_ = '#000000',
       _color_white_ = '#ffffff',
@@ -43,6 +46,7 @@ const createGrid = () => {
     
     // Rendering context and draw functions
     ctx = canvas.getContext('2d');
+    // ctx.createImageData(0, 0, width, height);
 
     // Default color of grid canvas
     let first = _color_white_, second = _color_grey_;
@@ -73,8 +77,11 @@ const init = () => {
     // Create grid area for painting
     createGrid();
 
+    
     coordX = canvas.getBoundingClientRect().x - pixel.getBoundingClientRect().x;
     coordY = canvas.getBoundingClientRect().y - pixel.getBoundingClientRect().y;
+
+    canvas.addEventListener('mousemove', hover);
 }
 
 // Function for drawing color in canvas
@@ -92,7 +99,6 @@ const tools = e => {
 
     // Draw
     if(mode === 'paint') {
-        
         drawPixel(x, y, currentColor, currentColor);
     }
 
@@ -107,7 +113,7 @@ const tools = e => {
     }
 }
 
-
+// Convert rgb(red, green, blue) to hexa color
 const rgbToHex = (r, g, b) => '#' + [r, g, b]
                                         .map(x => x.toString(16)
                                         .padStart(2, '0'))
@@ -116,9 +122,9 @@ const rgbToHex = (r, g, b) => '#' + [r, g, b]
 
 const pickColor = e => {
     currentColor = window.getComputedStyle(e.target).backgroundColor;
-    currentColor = rgbToHex(...currentColor
-        .match(/\d+/g)
-        .map(n => +n));
+    // After getting value from getComputedStyle then currentColor = rgb(r, g, b) 
+    // Thus, it should be converted to hexa 
+    currentColor = rgbToHex(...currentColor.match(/\d+/g).map(Number));
 }
 
 const hover = e => {
@@ -140,7 +146,42 @@ const hover = e => {
     setTimeout(drawPixel.bind(null, x, y, _color_white_, _color_grey_), 100);
 }
 
+const pixelatedImg = () => {
+    const size = 0.2,
+          w = canvas.width * size,
+          h = canvas.height * size;
 
+    ctx.drawImage(img, 0, 0, w, h);
+
+    ctx.msImageSmoothingEnabled = false;
+    ctx.mozImageSmoothingEnabled = false;
+    ctx.webkitImageSmoothingEnabled = false;
+    ctx.imageSmoothingEnabled = false;
+
+    ctx.drawImage(canvas, 0, 0, w, h, 0, 0, canvas.width, canvas.height);
+}
+
+const importImage = () => {
+    inputFile.click();
+    // Stop hover event
+    canvas.removeEventListener('mousemove', hover);
+    img = new Image();
+
+    // make url from file that is chosen
+    img.src = window.URL.createObjectURL(inputFile.files[0]);
+    img.addEventListener('load', pixelatedImg);
+
+}
+
+
+// Export image as .png
+const exportImage = () => {
+    let image = canvas.toDataURL("image/png", 1);
+    let link = document.createElement('a');
+    link.download = "pixel-zcd.png";
+    link.href = image;
+    link.click();
+}
 
 
 // use mousemove event instead of mouseover because mouse will change the first element while mouseover will change the second element.
@@ -183,12 +224,11 @@ canvas.addEventListener('mouseup', unActivatedMousemove);
 canvas.addEventListener('mouseout', unActivatedMousemove);
 canvas.addEventListener('click', tools);
 canvas.addEventListener('contextmenu', e => e.preventDefault());
-canvas.addEventListener('mousemove', hover);
 
 // -----------------------------------------------
 
 gallery.addEventListener('click', pickColor);
 
-
-
+btnExport.addEventListener('click', exportImage);
+btnImport.addEventListener('click', importImage);
 
