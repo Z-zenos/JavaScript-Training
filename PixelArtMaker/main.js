@@ -2,10 +2,11 @@
 
 /* ================ VARIABLE ================ */
 
-const pixel = document.querySelector('.pixel'),
+const root = document.documentElement,
+      pixel = document.querySelector('.pixel'),
       canvas = document.getElementById('canvas'),
       colorList = document.querySelectorAll('.pixel__gallery .color'),
-      root = document.documentElement,
+      labelSize = document.querySelector('.range-number'),
       eraser = document.querySelector('.tool--erase'),
       images = document.querySelectorAll('img'),
       gallery = document.querySelector('.pixel__gallery'),
@@ -18,7 +19,8 @@ const pixel = document.querySelector('.pixel'),
       btnBrush = document.querySelector('.tool--brush'),
       inputFile = document.getElementById('upload'),
       inputColor = document.querySelector('input[type="color"]'),
-      inputText = document.querySelector('input[type="text"]');
+      inputText = document.querySelector('input[type="text"]'),
+      inputRange = document.querySelector('input[type="range"]');
 
 let currentColor,       // curent color used to draw
     ctx,                // context of canvas 
@@ -39,6 +41,8 @@ const popularColors = [
     "#4630D9", "#D90467", "#000000", "#B8BF84",
     "#BF04A0", "#BFBFBF", "#F2F2F2", "#02735E"
 ];
+
+const steps = [1, 4, 9];    // step for input type range
 
 
 const cursors = {
@@ -66,10 +70,22 @@ const hexToRgba = (hex, alpha = 1) => {
     return `rgb(${r}, ${g}, ${b}, ${alpha})`;
 }
 
+// this = [mode, urlCursor]
+const changeMode = function() {
+    mode = this[0];
+    canvas.style.cursor = this[1];
+}
+
+const pickColor = e => {
+    currentColor = window.getComputedStyle(e.target).backgroundColor;
+    // After getting value from getComputedStyle then currentColor = rgb(r, g, b) 
+    // Thus, it should be converted to hexa 
+    currentColor = rgbToHex(...currentColor.match(/\d+/g).map(Number));
+}
+
+
 
 /* ================ HANDLE EVENT ================ */
-
-
 
 const createGrid = () => {
     // Unit is rem 
@@ -93,14 +109,9 @@ const createGrid = () => {
     }
 }
 
-// this = [mode, urlCursor]
-const changeMode = function() {
-    mode = this[0];
-    canvas.style.cursor = this[1];
-}
-
 const init = () => {
     inputText.value = "";
+    labelSize.textContent = steps[+inputRange.value - 1];
     img = new Image();
     isHover = true;
     currentColor = _color_black_;
@@ -221,15 +232,6 @@ const tools = e => {
     }
 }
 
-
-
-const pickColor = e => {
-    currentColor = window.getComputedStyle(e.target).backgroundColor;
-    // After getting value from getComputedStyle then currentColor = rgb(r, g, b) 
-    // Thus, it should be converted to hexa 
-    currentColor = rgbToHex(...currentColor.match(/\d+/g).map(Number));
-}
-
 const hover = e => {
     e.preventDefault();
     
@@ -335,7 +337,6 @@ const hover = e => {
     }
 }
 
-
 const pixelatedImg = function() {
     // Free memory
     window.URL.revokeObjectURL(img.src);
@@ -391,6 +392,8 @@ const addColor = (e) => {
     inputColor.addEventListener('change', () => currentColor = inputColor.value);
 }
 
+// Change cursor size
+const changeCursorSize = e => labelSize.textContent = steps[e.target.value - 1];
 
 
 // use mousemove event instead of mouseover because mouse will change the first element while mouseover will change the second element.
@@ -409,16 +412,22 @@ const unActivatedMousemove = () => {
 
 eraser.addEventListener('click', changeMode.bind(['erase', cursors.erase]));
 btnPen.addEventListener('click', changeMode.bind(['paint', cursors.pen]));
+btnAddColor.addEventListener('click', addColor);
+btnBrush.addEventListener('click', changeMode.bind(['brush', cursors.brush]));
+btnText.addEventListener('click', changeMode.bind(['text', cursors.pen]));
+gallery.addEventListener('click', pickColor);
 
 // -----------------------------------------------
 
 
 
 
-// -------------- INIT ACTION ------------------
+// -------------- INIT ACTION & TASK BAR ------------------
 
 window.addEventListener('load', init);
 btnNew.addEventListener('click', init);
+btnExport.addEventListener('click', exportImage);
+btnImport.addEventListener('click', importImage);
 
 // -----------------------------------------------
 
@@ -436,15 +445,6 @@ canvas.addEventListener('contextmenu', e => e.preventDefault());
 
 // -----------------------------------------------
 
-gallery.addEventListener('click', pickColor);
-
-btnExport.addEventListener('click', exportImage);
-btnImport.addEventListener('click', importImage);
-
-btnAddColor.addEventListener('click', addColor);
 
 inputText.addEventListener('keyup', drawText);
-btnText.addEventListener('click', changeMode.bind(['text', cursors.pen]));
-
-btnBrush.addEventListener('click', changeMode.bind(['brush', cursors.brush]));
-
+inputRange.addEventListener('change', changeCursorSize);
