@@ -30,9 +30,9 @@ let currentColor,       // curent color used to draw
     colOdd;             // check y coordinate is odd ?
 
 const _color_black_ = '#000000',
-      _color_white_ = '#ffffff',
-      _color_grey_ = '#e0e0e0',
-      _color_hover_ = '#bfbfbf';
+      _color_white_ = '#FFFFFF',
+      _color_grey_ = '#E0E0E0',
+      _color_hover_ = '#BFBFBF';
 
 const popularColors = [
     "#F20505", "#05F2DB", "#F2CB05", "#F28705",
@@ -47,7 +47,28 @@ const cursors = {
 }
 
 
+/* ================ UTILITY FUNCTION ================ */
+
+// Convert rgb(red, green, blue) to hexa color
+const rgbToHex = (r, g, b) => '#' + [r, g, b]
+                                        .map(x => x.toString(16)
+                                        .padStart(2, '0'))
+                                        .join('')
+                                        .toUpperCase();
+
+const hexToRgba = (hex, alpha = 1) => {
+    let bigint = parseInt(hex.slice(1), 16),
+        r = (bigint >> 16) & 255,
+        g = (bigint >> 8) & 255,
+        b = bigint & 255;
+        
+    return `rgb(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+
 /* ================ HANDLE EVENT ================ */
+
+
 
 const createGrid = () => {
     // Unit is rem 
@@ -177,18 +198,29 @@ const tools = e => {
             break;
 
         case 'brush':
+            drawPixel(x, y - 20, hexToRgba(currentColor, 0.8), hexToRgba(currentColor, 0.8));
+            drawPixel(x + 20, y, hexToRgba(currentColor, 0.88), hexToRgba(currentColor, 0.88));
+            drawPixel(x, y + 20, hexToRgba(currentColor, 0.9), hexToRgba(currentColor, 0.9));
+            drawPixel(x - 20, y, hexToRgba(currentColor, 0.7), hexToRgba(currentColor, 0.7));
+
+            drawPixel(x - 10, y - 10, hexToRgba(currentColor, 0.5), hexToRgba(currentColor, 0.5));
+            drawPixel(x, y - 10, hexToRgba(currentColor), hexToRgba(currentColor));
+            drawPixel(x + 10, y - 10, hexToRgba(currentColor, 0.7), hexToRgba(currentColor, 0.7));
+            
+            drawPixel(x - 10, y, hexToRgba(currentColor, 0.6), hexToRgba(currentColor, 0.6));
+            drawPixel(x, y, hexToRgba(currentColor), hexToRgba(currentColor));
+            drawPixel(x + 10, y, hexToRgba(currentColor), hexToRgba(currentColor));
+
+            drawPixel(x - 10, y + 10, hexToRgba(currentColor, 0.9), hexToRgba(currentColor, 0.9));
+            drawPixel(x, y + 10, hexToRgba(currentColor), hexToRgba(currentColor));
+            drawPixel(x + 10, y + 10, hexToRgba(currentColor, 0.6), hexToRgba(currentColor, 0.6));
             break;
         default:
             break;
     }
 }
 
-// Convert rgb(red, green, blue) to hexa color
-const rgbToHex = (r, g, b) => '#' + [r, g, b]
-                                        .map(x => x.toString(16)
-                                        .padStart(2, '0'))
-                                        .join('')
-                                        .toUpperCase();
+
 
 const pickColor = e => {
     currentColor = window.getComputedStyle(e.target).backgroundColor;
@@ -206,15 +238,75 @@ const hover = e => {
     
     // Get rgb color of current cell, if color of this cell not is default color(white, grey) then skip and not hover
     const [r, g, b] = ctx.getImageData(x, y, 10, 10).data;
-    if(rgbToHex(r, g, b) === currentColor.toUpperCase()) return;
+    const colorCurrentCell = rgbToHex(r, g, b);
+    if(
+        colorCurrentCell !== _color_white_ &&
+        colorCurrentCell !== _color_grey_
+    ) 
+        return;
+    if(mode === 'brush') {
+        /*
+             o
+            ooo
+           ooooo
+            ooo
+             0 
+        */
+        ctx.fillStyle = '#9d9d9d';
+        ctx.fillRect(x, y - 20, 10, 10);
+        ctx.fillStyle = '#babcbd';
+        ctx.fillRect(x + 20, y, 10, 10);
+        ctx.fillStyle = '#9f9f9f';
+        ctx.fillRect(x, y + 20, 10, 10);
+        ctx.fillStyle = '#';
+        ctx.fillRect(x - 20, y, 10, 10);
 
+        ctx.fillStyle = '#b3b3b3';
+        ctx.fillRect(x - 10, y - 10, 10, 10);
+        ctx.fillStyle = '#efefef';
+        ctx.fillRect(x, y - 10, 10, 10);
+        ctx.fillStyle = '#dddddd';
+        ctx.fillRect(x + 10, y - 10, 10, 10);
 
-    // Hover color 
-    ctx.fillStyle = _color_hover_;
-    ctx.fillRect(x, y, 10, 10);
+        ctx.fillStyle = '#cdcdcd';
+        ctx.fillRect(x - 10, y, 10, 10);
+        ctx.fillStyle = '#888888';
+        ctx.fillRect(x, y, 10, 10);
+        ctx.fillStyle = '#d4d5d6';
+        ctx.fillRect(x + 10, y, 10, 10);
 
-    setTimeout(drawPixel.bind(null, x, y), 100);
+        ctx.fillStyle = '#9c9c9c';
+        ctx.fillRect(x - 10, y + 10, 10, 10);
+        ctx.fillStyle = '#606060';
+        ctx.fillRect(x, y + 10, 10, 10);
+        ctx.fillStyle = '#bababa';
+        ctx.fillRect(x + 10, y + 10, 10, 10);
+
+        setTimeout(() => {
+            drawPixel(x, y - 20);
+            drawPixel(x + 20, y);
+            drawPixel(x, y + 20);
+            drawPixel(x - 20, y);
+            drawPixel(x - 10, y - 10);
+            drawPixel(x, y - 10);
+            drawPixel(x + 10, y - 10);
+            drawPixel(x - 10, y);
+            drawPixel(x, y);
+            drawPixel(x + 10, y);
+            drawPixel(x - 10, y + 10);
+            drawPixel(x, y + 10);
+            drawPixel(x + 10, y + 10);
+        }, 100);
+    }
+    else {
+        // Hover color 
+        ctx.fillStyle = _color_hover_;
+        ctx.fillRect(x, y, 10, 10);
+    
+        setTimeout(drawPixel.bind(null, x, y), 100);
+    }
 }
+
 
 const pixelatedImg = function() {
     // Free memory
@@ -327,3 +419,4 @@ inputText.addEventListener('keyup', drawText);
 btnText.addEventListener('click', changeMode.bind(['text', cursors.pen]));
 
 btnBrush.addEventListener('click', changeMode.bind(['brush', cursors.pen]));
+
