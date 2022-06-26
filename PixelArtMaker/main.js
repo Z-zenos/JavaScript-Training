@@ -15,14 +15,19 @@ const pixel = document.querySelector('.pixel'),
       btnExport = document.querySelector('.export'),
       btnAddColor = document.querySelector('.tool--more-color'),
       btnText = document.querySelector('.tool--text'),
+      btnBrush = document.querySelector('.tool--brush'),
       inputFile = document.getElementById('upload'),
       inputColor = document.querySelector('input[type="color"]'),
       inputText = document.querySelector('input[type="text"]');
 
-let currentColor,
-    ctx,
-    coordX, coordY,
-    mode, isHover, img, coordText, font;
+let currentColor,       // curent color used to draw
+    ctx,                // context of canvas 
+    coordX, coordY,     // the origin of the coordinates axis of the canvas relative to the pixel box
+    mode,               // mode: paint, erase, text...
+    isHover,            // control hover in canvas
+    img,                // import Image
+    coordText,          // the origin of the coordinates axis of the text entered
+    colOdd;             // check y coordinate is odd ?
 
 const _color_black_ = '#000000',
       _color_white_ = '#ffffff',
@@ -93,7 +98,7 @@ const init = () => {
 }
 
 // Function for drawing color in canvas
-const drawPixel = (x, y, color1, color2) => {
+const drawPixel = (x, y, color1 = _color_white_, color2 = _color_grey_) => {
     ctx.fillStyle = (x + y) / 10 % 2 === 0 ? color1 : color2; 
     ctx.fillRect(x, y, 10, 10);
 }
@@ -101,22 +106,26 @@ const drawPixel = (x, y, color1, color2) => {
 const drawText = function (e) {
     // If text position reach canvas edge then enter new line
     if(coordText.x >= 590) {
+        colOdd = coordText.x === 590 ? true : false;
         coordText.x = 0;
         coordText.y += 30;
     }
 
     if(e.key === "Backspace") {
-        drawPixel(coordText.x - 20, coordText.y, _color_white_, _color_grey_);
-        drawPixel(coordText.x - 10, coordText.y, _color_white_, _color_grey_);
-        drawPixel(coordText.x - 20, coordText.y + 10, _color_white_, _color_grey_);
-        drawPixel(coordText.x - 10, coordText.y + 10, _color_white_, _color_grey_);
-        drawPixel(coordText.x - 20, coordText.y + 20, _color_white_, _color_grey_);
-        drawPixel(coordText.x - 10, coordText.y + 20, _color_white_, _color_grey_);
+        if(coordText.x <= 0) {
+            coordText.x = colOdd ? 590 : 600;
+            coordText.y -= 30;
+        }
+        drawPixel(coordText.x - 20, coordText.y);
+        drawPixel(coordText.x - 10, coordText.y);
+        drawPixel(coordText.x - 20, coordText.y + 10);
+        drawPixel(coordText.x - 10, coordText.y + 10);
+        drawPixel(coordText.x - 20, coordText.y + 20);
+        drawPixel(coordText.x - 10, coordText.y + 20);
         coordText.x -= 20;
     }
     // Not fire for key such as shift, ctrl, alt, tab...
     else if(e.keyCode >= 32) {
-
         ctx.fillStyle = currentColor;
         // If 20 is not added into y coord, the text will appear in the box immediately above (because the coordinate system is reversed from normal).
         ctx.fillText(inputText.value, coordText.x, coordText.y + 20);
@@ -136,36 +145,41 @@ const tools = e => {
     // Round coord of box that is clicked
     let x = Math.trunc((e.layerX - coordX) / 10) * 10,
         y = Math.trunc((e.layerY - coordY) / 10) * 10;
-    // Draw
-    if(mode === 'paint') {
-        drawPixel(x, y, currentColor, currentColor);
-    }
 
-    // Erase
-    else if(mode === 'erase') { 
-        // The cells in the even position will be white (the position where the sum of the x and y coordinates is an even number is called an even cell).
-        // Erase 4 cell
-        drawPixel(x, y, _color_white_, _color_grey_);
-        drawPixel(x + 10, y, _color_white_, _color_grey_);
-        drawPixel(x, y + 10, _color_white_, _color_grey_);
-        drawPixel(x + 10, y + 10, _color_white_, _color_grey_);
-    }
+    switch (mode) {
+        case 'paint':
+            drawPixel(x, y, currentColor, currentColor);
+            break;
+    
+        case 'erase': 
+            // The cells in the even position will be white (the position where the sum of the x and y coordinates is an even number is called an even cell).
+            // Erase 4 cell
+            drawPixel(x, y);
+            drawPixel(x + 10, y);
+            drawPixel(x, y + 10);
+            drawPixel(x + 10, y + 10);
+            break;
 
-    // Text
-    else if(mode === 'text') {
-        inputText.focus();
+        case 'text':
+            inputText.focus();
+    
+            // Get coord of text
+            coordText = {
+                x: x,
+                y: y
+            }
+            
+            // Stop hover event
+            isHover = false;
+            canvas.removeEventListener('mousemove', hover);
+            // Set font-family and font-size of text
+            ctx.font = `19px old1982`;
+            break;
 
-        // Get coord of text
-        coordText = {
-            x: x,
-            y: y
-        }
-        
-        // Stop hover event
-        isHover = false;
-        canvas.removeEventListener('mousemove', hover);
-        // Set font-family and font-size of text
-        ctx.font = `19px old1982`;
+        case 'brush':
+            break;
+        default:
+            break;
     }
 }
 
@@ -199,7 +213,7 @@ const hover = e => {
     ctx.fillStyle = _color_hover_;
     ctx.fillRect(x, y, 10, 10);
 
-    setTimeout(drawPixel.bind(null, x, y, _color_white_, _color_grey_), 100);
+    setTimeout(drawPixel.bind(null, x, y), 100);
 }
 
 const pixelatedImg = function() {
@@ -232,7 +246,6 @@ const importImage = () => {
     
     inputFile.addEventListener('change', () => {
         img = new Image();
-        console.log(inputFile);
         // make url from file that is chosen
         img.src = URL.createObjectURL(inputFile.files[0]);
         img.addEventListener('load', pixelatedImg);
@@ -242,7 +255,6 @@ const importImage = () => {
         canvas.removeEventListener('mousemove', hover);
     });
 }
-
 
 // Export image as .png
 const exportImage = () => {
@@ -313,3 +325,5 @@ btnAddColor.addEventListener('click', addColor);
 
 inputText.addEventListener('keyup', drawText);
 btnText.addEventListener('click', changeMode.bind(['text', cursors.pen]));
+
+btnBrush.addEventListener('click', changeMode.bind(['brush', cursors.pen]));
