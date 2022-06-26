@@ -43,7 +43,8 @@ const popularColors = [
 
 const cursors = {
     pen: "auto",
-    erase: "url('./cursor/Eraser-icon.png'), auto"
+    erase: "url('./cursor/Eraser-icon.png'), auto",
+    brush: "url(./cursor/paint-brush-tool-icon.png), auto"
 }
 
 
@@ -245,6 +246,33 @@ const hover = e => {
     ) 
         return;
     if(mode === 'brush') {
+        const [r1, g1, b1] = ctx.getImageData(x, y - 20, 10, 10).data;
+        const colorCell1 = rgbToHex(r1, g1, b1);
+        const [r2, g2, b2] = ctx.getImageData(x + 10, y - 10, 10, 10).data;
+        const colorCell2 = rgbToHex(r2, g2, b2);
+        const [r3, g3, b3] = ctx.getImageData(x + 20, y, 10, 10).data;
+        const colorCell3 = rgbToHex(r3, g3, b3);
+        const [r4, g4, b4] = ctx.getImageData(x + 10, y + 10, 10, 10).data;
+        const colorCell4 = rgbToHex(r4, g4, b4);
+        const [r5, g5, b5] = ctx.getImageData(x, y + 20, 10, 10).data;
+        const colorCell5 = rgbToHex(r5, g5, b5);
+        const [r6, g6, b6] = ctx.getImageData(x - 10, y - 10, 10, 10).data;
+        const colorCell6 = rgbToHex(r6, g6, b6);
+        const [r7, g7, b7] = ctx.getImageData(x - 20, y, 10, 10).data;
+        const colorCell7 = rgbToHex(r7, g7, b7);
+        const [r8, g8, b8] = ctx.getImageData(x - 10, y - 10, 10, 10).data;
+        const colorCell8 = rgbToHex(r8, g8, b8);
+        if(
+            (colorCell1 !== _color_white_ && colorCell1 !== _color_grey_) ||
+            (colorCell2 !== _color_white_ && colorCell2 !== _color_grey_) ||
+            (colorCell3 !== _color_white_ && colorCell3 !== _color_grey_) ||
+            (colorCell4 !== _color_white_ && colorCell4 !== _color_grey_) ||
+            (colorCell5 !== _color_white_ && colorCell5 !== _color_grey_) ||
+            (colorCell6 !== _color_white_ && colorCell6 !== _color_grey_) ||
+            (colorCell7 !== _color_white_ && colorCell7 !== _color_grey_) ||
+            (colorCell8 !== _color_white_ && colorCell8 !== _color_grey_)
+        ) 
+        return;
         /*
              o
             ooo
@@ -418,5 +446,5 @@ btnAddColor.addEventListener('click', addColor);
 inputText.addEventListener('keyup', drawText);
 btnText.addEventListener('click', changeMode.bind(['text', cursors.pen]));
 
-btnBrush.addEventListener('click', changeMode.bind(['brush', cursors.pen]));
+btnBrush.addEventListener('click', changeMode.bind(['brush', cursors.brush]));
 
