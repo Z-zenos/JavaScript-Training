@@ -42,9 +42,9 @@ const popularColors = [
 
 
 const cursors = {
-    pen: "auto",
+    pen: "url(./cursor/Pencil-icon.png), auto",
     erase: "url('./cursor/Eraser-icon.png'), auto",
-    brush: "url(./cursor/paint-brush-tool-icon.png), auto"
+    brush: "url(./cursor/paint-brush-tool-icon.png), auto",
 }
 
 
