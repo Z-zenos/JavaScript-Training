@@ -28,7 +28,8 @@ else if(userAgent.match(/window/i))
     os = 'window';
 else if(userAgent.match(/mac/i))
     os = 'macos';
-
+else 
+    os = 'unknown os';
 const init = () => {
     document.querySelector(`.${browser}`).classList.add('active');
     document.querySelector(`.${os}`).classList.add('active');
