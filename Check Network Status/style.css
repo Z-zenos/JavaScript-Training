@@ -1,0 +1,101 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Poppins:wght@100;300;400;500;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+html {
+  font-size: 62.5%;
+  height: 100%;
+}
+
+.network-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 3rem;
+  left: 40rem;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+  padding: 2rem;
+  border-radius: 1rem;
+  column-gap: 2rem;
+  border-left: 4px solid #00D411;
+  transition: all 0.8s ease;
+}
+.network-status__icon {
+  width: 5rem;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: #B8FFC7;
+  padding: 1rem;
+}
+.network-status.active {
+  border-left: 4px solid #AAA;
+}
+.network-status.active .network-status__icon {
+  background: rgb(247, 247, 247);
+}
+.network-status.active .wifi-on {
+  display: none;
+}
+.network-status.active .wifi-off {
+  color: #AAA;
+  display: block;
+}
+.network-status.active .text-status {
+  color: #AAA;
+}
+.network-status.move {
+  left: 2rem;
+}
+
+img {
+  width: 30px;
+  height: 30px;
+  color: #00C611;
+}
+img.wifi-off {
+  display: none;
+}
+
+.heading {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.text {
+  font-size: 1.3rem;
+  color: #AAA;
+}
+
+button {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  outline: none;
+  background: none;
+  padding: 0.6rem;
+  color: #AAA;
+  background: rgb(247, 247, 247);
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+button:hover {
+  transform: rotate(360deg);
+}
+
+.text-status {
+  color: #00D411;
+}
+
+/*# sourceMappingURL=style.css.map */

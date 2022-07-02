@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Network Status</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="data:;base64,iVBORw0KGgo=">
+</head>
+<body>
+    <div class="network-status">
+        <div class="network-status__icon">
+            <img src="icons/wifi.svg" class="wifi-on">
+            <img src="icons/wifi-off.svg" class="wifi-off" >
+        </div>
+        <div class="network-status__notify">
+            <p class="heading">You're <span class="text-status">online</span> now</p>
+            <p class="text">Hurra!!! Internet is connected.</p>
+        </div>
+        <button><img src="icons/close.svg" class="material-icons"></button>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
