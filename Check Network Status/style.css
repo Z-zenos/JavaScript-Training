@@ -20,7 +20,7 @@ html {
   align-items: center;
   position: absolute;
   top: 3rem;
-  left: 40rem;
+  left: -40rem;
   box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
   padding: 2rem;
   border-radius: 1rem;
