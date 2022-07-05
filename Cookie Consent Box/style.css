@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Poppins:wght@100;300;400;500;700&display=swap");
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+html {
+  font-size: 62.5%;
+  height: 100%;
+  background-color: #FFBC7D;
+}
+
+.cookie {
+  position: absolute;
+  width: 40rem;
+  height: 34rem;
+  bottom: 4rem;
+  left: 4rem;
+  border-radius: 1rem;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+  background: #FAFBFB;
+  padding: 3rem;
+  text-align: center;
+}
+.cookie__img img {
+  width: 8rem;
+  height: auto;
+}
+.cookie__heading {
+  font-size: 2.5rem;
+  font-weight: 500;
+  margin: 1rem 0;
+}
+.cookie__text {
+  text-align: left;
+  font-size: 1.5rem;
+  opacity: 0.7;
+}
+
+.btn {
+  display: inline-block;
+  background-color: #FFBC7D;
+  padding: 1rem 2rem;
+  margin: 2rem 0;
+  font-size: 1.6rem;
+  color: #FAFBFB;
+  outline: none;
+  font-size: 500;
+  border-radius: 0.8rem;
+  color: #000;
+  border: 2px solid #000;
+}
+.btn:last-of-type {
+  margin-left: 3rem;
+}
+.btn--solid {
+  text-decoration: none;
+  padding: 1rem 4rem;
+}
+.btn--outline {
+  background-color: transparent;
+}
+
+/*# sourceMappingURL=style.css.map */

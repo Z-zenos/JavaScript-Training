@@ -1,10 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Poppins:wght@100;300;400;500;700&display=swap');
 
 
-$color-white: #FFF;
+$color-white: #FAFBFB;
 $color-black: #000;
+$color-cookies: #FFBC7D;
 
-* {
+*,
+*::after,
+*::before {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -17,4 +20,63 @@ body {
 html {
     font-size: 62.5%;
     height: 100%;
+    background-color: $color-cookies;
+}
+
+.cookie {
+    position: absolute;
+    width: 40rem;
+    height: 34rem;
+    bottom: 4rem;
+    left: 4rem;
+    border-radius: 1rem;
+    box-shadow: 0 1.5rem 4rem rgba($color-black, .15);
+    background: $color-white;
+    padding: 3rem;
+    text-align: center;
+
+    &__img img {
+        width: 8rem;
+        height: auto;
+    }
+
+    &__heading {
+        font-size: 2.5rem;
+        font-weight: 500;
+        margin: 1rem 0;
+    }
+
+    &__text {
+        text-align: left;
+        font-size: 1.5rem;
+        opacity: .7;
+    }
+}
+
+.btn {
+    display: inline-block;
+    &:last-of-type {
+        margin-left: 3rem;
+    }
+
+    background-color: $color-cookies;
+    padding: 1rem 2rem;
+    margin: 2rem 0;
+    font-size: 1.6rem;
+    color: $color-white;
+    outline: none;
+    font-size: 500;
+    border-radius: .8rem;
+    color: $color-black;
+
+    border: 2px solid $color-black;
+
+    &--solid {
+        text-decoration: none;
+        padding: 1rem 4rem;
+    }
+
+    &--outline {
+        background-color: transparent;
+    }
 }
