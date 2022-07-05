@@ -29,11 +29,13 @@ html {
     height: 34rem;
     bottom: 4rem;
     left: 4rem;
+    transform: translateY(50rem);
     border-radius: 1rem;
     box-shadow: 0 1.5rem 4rem rgba($color-black, .15);
     background: $color-white;
     padding: 3rem;
     text-align: center;
+    transition: all 1.7s ease;
 
     &__img img {
         width: 8rem;
@@ -50,6 +52,10 @@ html {
         text-align: left;
         font-size: 1.5rem;
         opacity: .7;
+    }
+
+    &--active {
+        transform: translateY(0);
     }
 }
 
