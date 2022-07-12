@@ -129,17 +129,19 @@ html {
   column-gap: 2rem;
   box-shadow: 0 1rem 4rem rgba(0, 0, 0, 0.7);
   border-radius: 1rem;
-  padding: 0 1rem;
+  width: 95%;
 }
 .weather__timeline__day {
   text-align: center;
   border-radius: inherit;
   padding: 1rem;
+  cursor: pointer;
+  transition: all 0.4s ease;
 }
 .weather__timeline__day .text--mini {
   opacity: 0.7;
 }
-.weather__timeline__day:first-of-type {
+.weather__timeline__day--active {
   background-color: #fafbfb;
   color: #000;
   transform: scale(1.1);

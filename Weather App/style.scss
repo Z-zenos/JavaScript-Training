@@ -153,18 +153,19 @@ html {
         column-gap: 2rem;
         box-shadow: 0 1rem 4rem rgba($color-black, 0.7);
         border-radius: 1rem;
-        padding: 0 1rem;
-
+        width: 95%;
         &__day {
             text-align: center;
             border-radius: inherit;
             padding: 1rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
 
             .text--mini {
                 opacity: 0.7;
             }
 
-            &:first-of-type {
+            &--active {
                 background-color: $color-white;
                 color: $color-black;
                 transform: scale(1.1);
