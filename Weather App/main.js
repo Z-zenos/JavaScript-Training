@@ -112,7 +112,6 @@ const getWeatherData = async function(e) {
             fetch(`https://pixabay.com/api/?key=${imageApiKey}&q=${cityInput}&image_type=photo`),
             fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${cityInput}&appid=${weatherApiKey}`)
         ]);
-
         
         const [imageData, weatherData] = data;
         
@@ -120,7 +119,6 @@ const getWeatherData = async function(e) {
               
         const bgImage = await imageData.json();
         res = await weatherData.json();
-        
 
         setStateNotify('Success', 'notify--success');
         // background.style.background = `url('${bgImage.hits[0].largeImageURL}'), linear-gradient(rgba($color-black, 0.2), rgba($color-black, 0.2))`;
