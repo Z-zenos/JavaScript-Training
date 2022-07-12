@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="data:;base64,iVBORw0KGgo=">
+</head>
+
+<body>
+    <div class="weather">
+        <div class="weather--left">
+            <div class="weather--left__top">
+                <div class="weather__time">
+                    <p class="text text--bold text--medium day">Tuesday</p>
+                    <p class="text text--mini date">12, Jul 2022</p>
+                </div>
+                <div class="weather__location">
+                    <img src="icons/location.png" class="icon icon--small" alt="location icon">
+                    <p class="text text--bold text--medium city">Paris
+                        <span class="text text--mini country">France</span>
+                    </p>
+                </div>
+            </div>
+            <div class="weather--left__bottom">
+                <img src="icons/sun.png" class="icon icon--big" alt="">
+                <p class="text text--bold text--big temperature">29<span class="text text--small unit">℃</span></p>
+                <p class="text text--bold text--medium state">Sunny</p>
+            </div>
+        </div>
+        <div class="weather--right">
+            <div class="weather__details">
+                <div class="weather__flex text text--small">
+                    <p class="text--bold">PRECIPITATION</p>
+                    <p class="precipitation">10%</p>
+                </div>
+                <div class="weather__flex text text--small">
+                    <p class="text--bold">HUMIDITY</p>
+                    <p class="humidity">80%</p>
+                </div>
+                <div class="weather__flex text text--small">
+                    <p class="text--bold">WIND</p>
+                    <p class="wind">12 km/h</p>
+                </div>
+            </div>
+            <div class="weather__timeline">
+                <div class="weather__timeline__day">
+                    <img src="icons/sun.png" alt="" class="icon icon--small state-image">
+                    <p class="text text--mini day">Tue</p>
+                    <p class="text text--bold text--small temperature">29 <span class="text text--small unit">℃</span>
+                    </p>
+                    </p>
+                </div>
+                <div class="weather__timeline__day">
+                    <img src="icons/cloud.png" alt="" class="icon icon--small state-image">
+                    <p class="text text--mini day">Wed</p>
+                    <p class="text text--bold text--small temperature">20<span class="text text--small unit">℃</span>
+                    </p>
+                    </p>
+                </div>
+                <div class="weather__timeline__day">
+                    <img src="icons/snowy.png" alt="" class="icon icon--small state-image">
+                    <p class="text text--mini day">Thu</p>
+                    <p class="text text--bold text--small temperature">04<span class="text text--small unit">℃</span>
+                    </p>
+                    </p>
+                </div>
+                <div class="weather__timeline__day">
+                    <img src="icons/rain.png" alt="" class="icon icon--small state-image">
+                    <p class="text text--mini day">Fri</p>
+                    <p class="text text--bold text--small temperature">19<span class="text text--small unit">℃</span>
+                    </p>
+                    </p>
+                </div>
+            </div>
+            <div class="weather__search">
+                <div class="weather__input">
+                    <input type="text" class="input">
+                    <img src="icons/loupe.png" alt="search icon" class="icon icon--mini icon--search">
+                </div>
+                <p class="or text--small">OR</p>
+                <button class="weather__current-location">
+                    <img src="icons/location.png" alt="" class="icon icon--mini">
+                    Get Device Location
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>
