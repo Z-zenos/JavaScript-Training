@@ -14,13 +14,16 @@ const dayOfWeek = document.querySelector('.weather--left .day'),
       timeline = document.querySelector('.weather__timeline'),
       input = document.querySelector('.input'),
       btnSearch = document.querySelector('.icon--search'),
-      btnDeviceLoc = document.querySelector('.weather__current-location')
+      btnDeviceLoc = document.querySelector('.weather__current-location'),
+      background = document.querySelector('.weather--left'),
+      notify = document.querySelector('.notify')
       ;
 
 let timelineDays = timeline.querySelectorAll('.weather__timeline__day'),
     res;    // response of api
 
-const apiKeys = '74b2bc7eab84c86dab9dde6f1609b9ab';
+const weatherApiKey = '74b2bc7eab84c86dab9dde6f1609b9ab';
+const imageApiKey = '21107836-8211f72b825e98b9ed06cd343';
 
 const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -50,6 +53,11 @@ const init = () => {
     input.value = '';
 }
 
+const setStateNotify = function(content, className) {
+    notify.textContent = content;
+    notify.classList.add(className);
+}
+
 /* ================ HANDLE EVENT ================ */
 
 const editWeatherDetails = function(id) {
@@ -77,15 +85,47 @@ const getWeatherData = async function(e) {
         // If 'enter' key || hit search icon then implements fecth api 
         if(e.target.classList.contains('input') && e.key !== 'Enter')   return;
         
-        // Get value from input
-        const cityInput = input.value.trim().toLowerCase();
-        
-        const weatherData = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${cityInput}&appid=${apiKeys}`);
-        
-        if(!weatherData.ok) throw new Error('Get data failure !');
-        res = await weatherData.json();
-        // console.log(res);
+        // Remove error notify and re-edit fetching data notify
+        notify.classList.remove('notify--error');
+        setStateNotify('Fetching data...', 'notify--active');
+        let cityInput;
+        // Get device location 
+        if(e.target.closest('.weather__current-location')) {
+            const coordsDevice = await new Promise((resolve, reject) => navigator.geolocation.getCurrentPosition(resolve, reject));
 
+            const { latitude: lat, longitude: lng } = coordsDevice.coords;
+
+            const data = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+
+            if(!data.ok) throw new Error('Your location undefined !');
+            const coordData = await data.json();
+            
+            cityInput = coordData.region;
+        }
+        else {
+            // Get value from input
+            cityInput = input.value.trim().toLowerCase();
+        }
+        
+        // Fetch image and weather api
+        const data = await Promise.all([
+            fetch(`https://pixabay.com/api/?key=${imageApiKey}&q=${cityInput}&image_type=photo`),
+            fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${cityInput}&appid=${weatherApiKey}`)
+        ]);
+
+        
+        const [imageData, weatherData] = data;
+        
+        if(!weatherData.ok || !imageData.ok) throw new Error('Get data failure !');
+              
+        const bgImage = await imageData.json();
+        res = await weatherData.json();
+        
+
+        setStateNotify('Success', 'notify--success');
+        // background.style.background = `url('${bgImage.hits[0].largeImageURL}'), linear-gradient(rgba($color-black, 0.2), rgba($color-black, 0.2))`;
+        // May be $color-black is undefined. So, image isn't darken
+        background.style.background = `url('${bgImage.hits[Math.trunc(Math.random() * 4)].largeImageURL}'), linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2))`;
         // city and country
         city.innerHTML = `${res.city.name} <span class="text text--mini country">${res.city.country}</span>`;
         
@@ -105,12 +145,15 @@ const getWeatherData = async function(e) {
                 </div>
             `);
         }
-
+        
         // Reset timeline day when query new location
         timelineDays = timeline.querySelectorAll('.weather__timeline__day');
+    
+        setTimeout(() => notify.classList.remove('notify--active', 'notify--success', 'notify--error'), 4000);
     } catch (err) {
+        setStateNotify('Error', 'notify--error');
         console.error(`ERR: ${err.message}`);
-    }
+    } 
 }
 
 const changeWeatherByDay = function(e) {
@@ -129,4 +172,5 @@ const changeWeatherByDay = function(e) {
 timeline.addEventListener('click', changeWeatherByDay);
 input.addEventListener('keyup', getWeatherData);
 btnSearch.addEventListener('click', getWeatherData);
+btnDeviceLoc.addEventListener('click', getWeatherData);
 window.addEventListener('load', init);

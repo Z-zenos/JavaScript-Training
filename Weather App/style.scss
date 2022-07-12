@@ -5,6 +5,8 @@ $color-black: #000;
 $color-grey-slate: #343d4c;
 $color-black-light: #212832;
 $color-blue: #05aff2;
+$color-success: #0bd904;
+$color-error: #f20505;
 
 @mixin flex {
     display: flex;
@@ -210,6 +212,32 @@ html {
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
+        }
+
+        .notify {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 50%;
+            transform: translateX(-50%);
+            background-color: $color-blue;
+            z-index: -1;
+            border-radius: 1rem;
+            opacity: 0;
+
+            &--active {
+                z-index: 10;
+                bottom: -4rem;
+                opacity: 1;
+            }
+
+            &--success {
+                background-color: $color-success;
+            }
+
+            &--error {
+                background-color: $color-error;
+            }
         }
     }
 

@@ -181,6 +181,28 @@ html {
   transform: translateY(-50%);
   cursor: pointer;
 }
+.weather__input .notify {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 50%;
+  transform: translateX(-50%);
+  background-color: #05aff2;
+  z-index: -1;
+  border-radius: 1rem;
+  opacity: 0;
+}
+.weather__input .notify--active {
+  z-index: 10;
+  bottom: -4rem;
+  opacity: 1;
+}
+.weather__input .notify--success {
+  background-color: #0bd904;
+}
+.weather__input .notify--error {
+  background-color: #f20505;
+}
 .weather__current-location {
   display: flex;
   justify-content: space-between;
