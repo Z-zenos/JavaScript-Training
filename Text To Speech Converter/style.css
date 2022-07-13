@@ -1,0 +1,79 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Poppins:wght@100;300;400;500;700&display=swap");
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+html {
+  font-size: 62.5%;
+  height: 100%;
+  background-color: #bf8360;
+}
+
+.text-speech {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2rem;
+  background-color: #fafbfb;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+  text-align: center;
+  font-size: 1.6rem;
+  width: 36rem;
+  border-radius: 0.8rem;
+}
+.text-speech__area {
+  margin: 3rem 0 2rem 0;
+  text-align: left;
+}
+.text-speech__area textarea {
+  width: 100%;
+  resize: none;
+  height: 8rem;
+  padding: 1rem;
+  border-radius: 0.8rem;
+  border: 1px solid #ccc;
+  font-size: 1.6rem;
+}
+.text-speech__voice {
+  text-align: left;
+}
+.text-speech__voice select {
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid #ccc;
+  font-size: 1.6rem;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+p {
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+.heading {
+  font-size: 2.5rem;
+}
+
+button {
+  background-color: #bf8360;
+  color: #fafbfb;
+  font-size: 1.7rem;
+  padding: 1rem 2rem;
+  border: none;
+  outline: none;
+  margin-top: 3rem;
+  border-radius: 0.6rem;
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=style.css.map */
