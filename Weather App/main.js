@@ -22,8 +22,8 @@ const dayOfWeek = document.querySelector('.weather--left .day'),
 let timelineDays = timeline.querySelectorAll('.weather__timeline__day'),
     res;    // response of api
 
-const weatherApiKey = '74b2bc7eab84c86dab9dde6f1609b9ab';
-const imageApiKey = '21107836-8211f72b825e98b9ed06cd343';
+const weatherApiKey = process.env.WEATHER_API_KEY;
+const imageApiKey = process.env.IMAGE_API_KEY;
 
 const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
